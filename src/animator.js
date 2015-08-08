@@ -3,6 +3,7 @@ import Velocity from 'velocity';
 
 export class VelocityAnimator{
 	constructor() {
+		this.animationStack = [];
 		this.isAnimating = false;
 		this.options = {
     		duration: 400,
@@ -56,5 +57,26 @@ export class VelocityAnimator{
 	_triggerDOMEvent(eventType, element) {
     	var evt = new window.CustomEvent(animationEvent[name], {bubbles: true, cancelable: true, detail: element});
     	document.dispatchEvent(evt);
+  }
+ 
+  	_addMultipleEventListener(el, s, fn) {
+    	var evts = s.split(' '),
+      	i, ii;
+
+    	for (i = 0, ii = evts.length; i < ii; ++i) {
+    		el.addEventListener(evts[i], fn, false);
+    	}
+    }
+    _addAnimationToStack(animId) {
+    	if(this.animationStack.indexOf(animId) < 0) {
+    		this.animationStack.push(animId);
+    	}
+    }
+   _removeAnimationFromStack(animId) {
+    	var idx = this.animationStack.indexOf(animId);
+    	if(idx > -1) {
+      		this.animationStack.splice(idx, 1);
+    	}
+    }
   }
 }
