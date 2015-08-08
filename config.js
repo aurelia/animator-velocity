@@ -21,6 +21,7 @@ System.config({
     "babel": "npm:babel-core@5.2.2",
     "babel-runtime": "npm:babel-runtime@5.2.2",
     "core-js": "npm:core-js@0.9.18",
+    "velocity": "github:julianshapiro/velocity@1.2.2",
     "github:aurelia/binding@0.8.0": {
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.9.0",
       "aurelia-metadata": "github:aurelia/metadata@0.7.0",
