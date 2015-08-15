@@ -1,7 +1,7 @@
 import Velocity from 'velocity';
-import {animationEvent,Animator} from 'aurelia-templating';
-
 import 'velocity/velocity.ui';
+import {animationEvent} from 'aurelia-templating';
+
 export class VelocityAnimator {
   constructor(container) {
     this.animationStack = [];
@@ -97,12 +97,4 @@ enter(element,effectName,options){
         _this._performSingleAnimate(element,effectName || 'fadeOut','leave');
     });
   }
-}
-
-export {VelocityAnimator} from './animator';
-
-export function configure(aurelia, cb){
-  let animator = aurelia.container.get(VelocityAnimator);
-  Animator.configureDefault(aurelia.container, animator);
-  if(cb !== undefined && typeof(cb) === 'function') cb(animator);
 }
