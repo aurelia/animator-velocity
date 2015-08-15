@@ -10,6 +10,7 @@ An implementation of the abstract Animator interface from templating which enabl
 ## Dependencies
 
 * [aurelia-templating](https://github.com/aurelia/templating)
+* [velocity](https://github.com/julianshapiro/velocity)
 
 ## Used By
 
