@@ -1,26 +1,28 @@
 System.config({
-  "transpiler": "babel",
-  "babelOptions": {
+  defaultJSExtensions: true,
+  transpiler: "babel",
+  babelOptions: {
     "optional": [
       "runtime",
       "es7.decorators"
     ]
   },
-  "paths": {
+  paths: {
     "*": "*.js",
     "aurelia-animator-velocity/*": "dist\\system/*.js",
-    "github:*": "jspm_packages/github/*.js",
-    "npm:*": "jspm_packages/npm/*.js"
+    "github:*": "jspm_packages/github/*",
+    "npm:*": "jspm_packages/npm/*"
   }
 });
 
 System.config({
-  "map": {
+  map: {
     "aurelia-metadata": "github:aurelia/metadata@0.7.0",
     "aurelia-templating": "github:aurelia/templating@0.13.0",
     "babel": "npm:babel-core@5.2.2",
     "babel-runtime": "npm:babel-runtime@5.2.2",
     "core-js": "npm:core-js@0.9.18",
+    "velocity": "github:julianshapiro/velocity@1.2.2",
     "github:aurelia/binding@0.8.0": {
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.9.0",
       "aurelia-metadata": "github:aurelia/metadata@0.7.0",
