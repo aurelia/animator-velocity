@@ -12,7 +12,7 @@ gulp.task('bump-version', function(){
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('changelog', function(callback) {
+gulp.task('changelog', function() {
   var pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
 
   return changelog({
