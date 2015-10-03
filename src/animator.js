@@ -1,6 +1,5 @@
 import Velocity from 'velocity';
 import 'velocity/velocity.ui';
-import {animationEvent} from 'aurelia-templating';
 
 export class VelocityAnimator {
   constructor(container) {
@@ -15,7 +14,7 @@ export class VelocityAnimator {
   }
 
 _triggerDOMEvent(eventType, element) {
-    var evt = new window.CustomEvent(animationEvent[name], {bubbles: true, cancelable: true, detail: element});
+    var evt = new window.CustomEvent(eventType, {bubbles: true, cancelable: true, detail: element});
     document.dispatchEvent(evt);
   }
 
