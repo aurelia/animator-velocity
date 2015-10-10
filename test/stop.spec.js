@@ -1,10 +1,13 @@
 import {VelocityAnimator} from '../src/animator';
+import {initialize} from 'aurelia-pal-browser';
 
 jasmine.getFixtures().fixturesPath = 'base/test/fixtures/';
 
 describe('stop function', () => {
   let animator;
   let container;
+
+  beforeAll(() => initialize());
 
   beforeEach(() => {
     let elem = $('#test-simple').eq(0)[0];

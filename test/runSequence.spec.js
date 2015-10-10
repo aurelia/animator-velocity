@@ -1,5 +1,6 @@
 import {VelocityAnimator} from '../src/animator';
 import {animationEvent} from 'aurelia-templating';
+import {initialize} from 'aurelia-pal-browser';
 
 jasmine.getFixtures().fixturesPath = 'base/test/fixtures/';
 
@@ -9,6 +10,8 @@ describe('animator-velocity', () => {
   let container;
   let seq;
   let testSequence;
+
+  beforeAll(() => initialize());
 
   beforeEach(() => {
     //stop all animations running on the test element
