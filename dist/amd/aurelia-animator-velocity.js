@@ -1,4 +1,4 @@
-define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'velocity/velocity.ui'], function (exports, _velocity, _jsol, _aureliaTemplating, _velocityVelocityUi) {
+define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'velocity/velocity.ui'], function (exports, _velocity, _jsol, _aureliaTemplating, _aureliaPal, _velocityVelocityUi) {
   'use strict';
 
   exports.__esModule = true;
@@ -28,7 +28,7 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'velocity/velocity.
         ':leave': 'fadeOut'
       };
 
-      this.container = container || window.document;
+      this.container = container || _aureliaPal.DOM;
       this.easings = Object.assign(_velocity2['default'].Easings, this.easings);
       this.effects = Object.assign(_velocity2['default'].Redirects, this.effects);
     }
@@ -99,7 +99,7 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'velocity/velocity.
     VelocityAnimator.prototype.runSequence = function runSequence(sequence) {
       var _this2 = this;
 
-      dispatch(window, 'sequenceBegin');
+      dispatch(_aureliaPal.PLATFORM.global, 'sequenceBegin');
       return new Promise(function (resolve, reject) {
         _this2.sequenceReject = resolve;
         var last = sequence[sequence.length - 1];
@@ -107,7 +107,7 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'velocity/velocity.
         last.options.complete = function () {
           if (!_this2.sequenceReject) return;
           _this2.sequenceReject = undefined;
-          dispatch(window, 'sequenceDone');
+          dispatch(_aureliaPal.PLATFORM.global, 'sequenceDone');
           resolve();
         };
         try {
@@ -130,7 +130,7 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'velocity/velocity.
         this.sequenceReject();
         this.sequenceReject = undefined;
       }
-      dispatch(window, 'sequenceDone');
+      dispatch(_aureliaPal.PLATFORM.global, 'sequenceDone');
       return this;
     };
 
@@ -230,7 +230,7 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'velocity/velocity.
   exports.VelocityAnimator = VelocityAnimator;
 
   function dispatch(element, name) {
-    var evt = new CustomEvent(_aureliaTemplating.animationEvent[name], { bubbles: true, cancelable: true, detail: element });
-    document.dispatchEvent(evt);
+    var evt = _aureliaPal.DOM.createCustomEvent(_aureliaTemplating.animationEvent[name], { bubbles: true, cancelable: true, detail: element });
+    _aureliaPal.DOM.dispatchEvent(evt);
   }
 });

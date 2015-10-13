@@ -1,6 +1,6 @@
 {
   "name": "aurelia-animator-velocity",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "An implementation of the abstract Animator interface from templating which enables velocity-based animations.",
   "keywords": [
     "aurelia",
@@ -14,26 +14,26 @@
   },
   "license": "MIT",
   "author": "Aaike Van Roekeghem <aaikevr@gmail.com>",
-  "main": "dist/commonjs/index.js",
+  "main": "dist/commonjs/aurelia-animator-velocity.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/aurelia/animator-velocity"
   },
   "jspm": {
-    "main": "index",
+    "main": "aurelia-animator-velocity",
     "format": "amd",
     "directories": {
       "lib": "dist/amd"
     },
     "dependencies": {
-      "aurelia-metadata": "github:aurelia/metadata@^0.8.0",
-      "aurelia-pal": "github:aurelia/pal@^0.1.10",
-      "aurelia-templating": "github:aurelia/templating@^0.15.3",
+      "aurelia-metadata": "github:aurelia/metadata@^0.9.0",
+      "aurelia-pal": "github:aurelia/pal@^0.2.0",
+      "aurelia-templating": "github:aurelia/templating@^0.16.0",
       "jsol": "github:daepark/JSOL@master",
       "velocity": "github:julianshapiro/velocity@^1.2.3"
     },
     "devDependencies": {
-      "aurelia-pal-browser": "github:aurelia/pal-browser@^0.1.13",
+      "aurelia-pal-browser": "github:aurelia/pal-browser@^0.2.0",
       "babel": "npm:babel-core@^5.8.21",
       "babel-runtime": "npm:babel-runtime@^5.8.20",
       "core-js": "npm:core-js@^1.0.0"
@@ -73,28 +73,8 @@
     "yargs": "^3.26.0"
   },
   "aurelia": {
-    "usedBy": [],
     "documentation": {
-      "links": [
-        {
-          "rel": "license",
-          "mediaType": "text/plain",
-          "title": "The MIT License (MIT)",
-          "href": "LICENSE"
-        },
-        {
-          "rel": "describedby",
-          "mediaType": "application/aurelia-doc+json",
-          "title": "API",
-          "href": "doc/api.json"
-        },
-        {
-          "rel": "version-history",
-          "mediaType": "text/markdown",
-          "title": "Change Log",
-          "href": "doc/CHANGELOG.md"
-        }
-      ]
+      "articles": []
     }
   }
 }

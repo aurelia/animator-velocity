@@ -1,6 +1,7 @@
 import velocity from 'velocity';
 import JSOL from 'jsol';
 import {animationEvent} from 'aurelia-templating';
+import {DOM,PLATFORM} from 'aurelia-pal';
 
 import 'velocity/velocity.ui';
 /**
@@ -40,7 +41,7 @@ export class VelocityAnimator {
   };
 
   constructor(container:any) {
-    this.container = container || window.document;
+    this.container = container || DOM;
     this.easings = Object.assign(velocity.Easings, this.easings);
     this.effects = Object.assign(velocity.Redirects, this.effects);
   }
@@ -165,7 +166,7 @@ export class VelocityAnimator {
    * @param sequence {Array}  array of animations
    */
   runSequence(sequence:Array<any>):Promise {
-    dispatch(window, 'sequenceBegin');
+    dispatch(PLATFORM.global, 'sequenceBegin');
     return new Promise((resolve, reject) => {
       this.sequenceReject = resolve;
       let last = sequence[sequence.length - 1];
@@ -173,7 +174,7 @@ export class VelocityAnimator {
       last.options.complete = ()=> {
         if (!this.sequenceReject) return;
         this.sequenceReject = undefined;
-        dispatch(window, 'sequenceDone');
+        dispatch(PLATFORM.global, 'sequenceDone');
         resolve();
       };
       try {
@@ -199,7 +200,7 @@ export class VelocityAnimator {
       this.sequenceReject();
       this.sequenceReject = undefined;
     }
-    dispatch(window, 'sequenceDone');
+    dispatch(PLATFORM.global, 'sequenceDone');
     return this;
   }
 
@@ -358,6 +359,6 @@ export class VelocityAnimator {
  * This method will resolved a simple animation into it's full event name name defined by aurelia-templating.
  */
 function dispatch(element, name):boid {
-  let evt = new CustomEvent(animationEvent[name], {bubbles: true, cancelable: true, detail: element});
-  document.dispatchEvent(evt);
+  let evt = DOM.createCustomEvent(animationEvent[name], {bubbles: true, cancelable: true, detail: element});
+  DOM.dispatchEvent(evt);
 }

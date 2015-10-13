@@ -2,6 +2,7 @@ declare module 'aurelia-animator-velocity' {
   import velocity from 'velocity';
   import JSOL from 'jsol';
   import { animationEvent }  from 'aurelia-templating';
+  import { DOM, PLATFORM }  from 'aurelia-pal';
   import 'velocity/velocity.ui';
   
   /**

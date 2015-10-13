@@ -1,13 +1,13 @@
-System.register(['velocity', 'jsol', 'aurelia-templating', 'velocity/velocity.ui'], function (_export) {
+System.register(['velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'velocity/velocity.ui'], function (_export) {
   'use strict';
 
-  var velocity, JSOL, animationEvent, VelocityAnimator;
+  var velocity, JSOL, animationEvent, DOM, PLATFORM, VelocityAnimator;
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
   function dispatch(element, name) {
-    var evt = new CustomEvent(animationEvent[name], { bubbles: true, cancelable: true, detail: element });
-    document.dispatchEvent(evt);
+    var evt = DOM.createCustomEvent(animationEvent[name], { bubbles: true, cancelable: true, detail: element });
+    DOM.dispatchEvent(evt);
   }
   return {
     setters: [function (_velocity) {
@@ -16,6 +16,9 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'velocity/velocity.ui
       JSOL = _jsol['default'];
     }, function (_aureliaTemplating) {
       animationEvent = _aureliaTemplating.animationEvent;
+    }, function (_aureliaPal) {
+      DOM = _aureliaPal.DOM;
+      PLATFORM = _aureliaPal.PLATFORM;
     }, function (_velocityVelocityUi) {}],
     execute: function () {
       VelocityAnimator = (function () {
@@ -35,7 +38,7 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'velocity/velocity.ui
             ':leave': 'fadeOut'
           };
 
-          this.container = container || window.document;
+          this.container = container || DOM;
           this.easings = Object.assign(velocity.Easings, this.easings);
           this.effects = Object.assign(velocity.Redirects, this.effects);
         }
@@ -106,7 +109,7 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'velocity/velocity.ui
         VelocityAnimator.prototype.runSequence = function runSequence(sequence) {
           var _this2 = this;
 
-          dispatch(window, 'sequenceBegin');
+          dispatch(PLATFORM.global, 'sequenceBegin');
           return new Promise(function (resolve, reject) {
             _this2.sequenceReject = resolve;
             var last = sequence[sequence.length - 1];
@@ -114,7 +117,7 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'velocity/velocity.ui
             last.options.complete = function () {
               if (!_this2.sequenceReject) return;
               _this2.sequenceReject = undefined;
-              dispatch(window, 'sequenceDone');
+              dispatch(PLATFORM.global, 'sequenceDone');
               resolve();
             };
             try {
@@ -137,7 +140,7 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'velocity/velocity.ui
             this.sequenceReject();
             this.sequenceReject = undefined;
           }
-          dispatch(window, 'sequenceDone');
+          dispatch(PLATFORM.global, 'sequenceDone');
           return this;
         };
 
