@@ -22,14 +22,24 @@ describe('animator-velocity-plugin', () => {
 
   describe('plugin initialization', () => {
     let aurelia = {
-      globalizeResources: () => {
+      globalResources: () => {
 
       },
       container: {
         registerInstance: (type, instance) => {
 
         },
-        get: (Type) => { return new Type(); }
+        get: (type) => {
+          if(type === VelocityAnimator) {
+            return new VelocityAnimator();
+          }
+
+          return {
+            configureAnimator() {
+
+            }
+          };
+        }
       }
     };
 
