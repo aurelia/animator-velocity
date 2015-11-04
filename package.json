@@ -30,7 +30,7 @@
       "aurelia-pal": "github:aurelia/pal@^0.2.0",
       "aurelia-templating": "github:aurelia/templating@^0.16.0",
       "jsol": "github:daepark/JSOL@master",
-      "velocity": "github:julianshapiro/velocity@^1.2.3"
+      "velocity": "npm:velocity-animate@^1.2.3"
     },
     "devDependencies": {
       "aurelia-pal-browser": "github:aurelia/pal-browser@^0.2.0",

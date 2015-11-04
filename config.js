@@ -22,7 +22,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.25",
     "core-js": "npm:core-js@1.2.1",
     "jsol": "github:daepark/JSOL@master",
-    "velocity": "github:julianshapiro/velocity@1.2.3",
+    "velocity": "npm:velocity-animate@1.2.3",
     "github:aurelia/binding@0.10.0": {
       "aurelia-metadata": "github:aurelia/metadata@0.9.0",
       "aurelia-pal": "github:aurelia/pal@0.2.0",
@@ -88,11 +88,18 @@ System.config({
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
+    "npm:jquery@2.1.4": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
     "npm:process@0.11.2": {
       "assert": "github:jspm/nodelibs-assert@0.1.0"
     },
     "npm:util@0.10.3": {
       "inherits": "npm:inherits@2.0.1",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:velocity-animate@1.2.3": {
+      "jquery": "npm:jquery@2.1.4",
       "process": "github:jspm/nodelibs-process@0.1.2"
     }
   }
