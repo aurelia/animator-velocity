@@ -18,9 +18,9 @@
     "url": "https://github.com/aurelia/animator-velocity"
   },
   "dependencies": {
-    "aurelia-metadata": "^0.9.0",
-    "aurelia-pal": "^0.2.0",
-    "aurelia-templating": "^0.16.0",
+    "aurelia-metadata": "^0.10.0",
+    "aurelia-pal": "^0.3.0",
+    "aurelia-templating": "^0.17.0",
     "jsol": "daepark/JSOL@master",
     "velocity": "^1.2.3"
   }
