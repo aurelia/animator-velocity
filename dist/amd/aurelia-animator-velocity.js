@@ -2,6 +2,7 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'vel
   'use strict';
 
   exports.__esModule = true;
+  exports.configure = configure;
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -232,5 +233,13 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'vel
   function dispatch(element, name) {
     var evt = _aureliaPal.DOM.createCustomEvent(_aureliaTemplating.animationEvent[name], { bubbles: true, cancelable: true, detail: element });
     _aureliaPal.DOM.dispatchEvent(evt);
+  }
+
+  function configure(config, callback) {
+    var animator = config.container.get(VelocityAnimator);
+    config.container.get(_aureliaTemplating.TemplatingEngine).configureAnimator(animator);
+    if (typeof callback === 'function') {
+      callback(animator);
+    }
   }
 });

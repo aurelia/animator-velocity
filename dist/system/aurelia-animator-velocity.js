@@ -1,7 +1,9 @@
 System.register(['velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'velocity/velocity.ui'], function (_export) {
   'use strict';
 
-  var velocity, JSOL, animationEvent, DOM, PLATFORM, VelocityAnimator;
+  var velocity, JSOL, animationEvent, TemplatingEngine, DOM, PLATFORM, VelocityAnimator;
+
+  _export('configure', configure);
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -9,6 +11,15 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'veloc
     var evt = DOM.createCustomEvent(animationEvent[name], { bubbles: true, cancelable: true, detail: element });
     DOM.dispatchEvent(evt);
   }
+
+  function configure(config, callback) {
+    var animator = config.container.get(VelocityAnimator);
+    config.container.get(TemplatingEngine).configureAnimator(animator);
+    if (typeof callback === 'function') {
+      callback(animator);
+    }
+  }
+
   return {
     setters: [function (_velocity) {
       velocity = _velocity['default'];
@@ -16,6 +27,7 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'veloc
       JSOL = _jsol['default'];
     }, function (_aureliaTemplating) {
       animationEvent = _aureliaTemplating.animationEvent;
+      TemplatingEngine = _aureliaTemplating.TemplatingEngine;
     }, function (_aureliaPal) {
       DOM = _aureliaPal.DOM;
       PLATFORM = _aureliaPal.PLATFORM;

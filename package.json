@@ -1,6 +1,6 @@
 {
   "name": "aurelia-animator-velocity",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "An implementation of the abstract Animator interface from templating which enables velocity-based animations.",
   "keywords": [
     "aurelia",
@@ -33,7 +33,7 @@
       "velocity": "npm:velocity-animate@^1.2.3"
     },
     "devDependencies": {
-      "aurelia-pal-browser": "github:aurelia/pal-browser@^0.2.0",
+      "aurelia-pal-browser": "github:aurelia/pal-browser@^0.3.0",
       "babel": "npm:babel-core@^5.8.21",
       "babel-runtime": "npm:babel-runtime@^5.8.20",
       "core-js": "npm:core-js@^1.2.6"

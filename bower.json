@@ -1,6 +1,6 @@
 {
   "name": "aurelia-animator-velocity",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "An implementation of the abstract Animator interface from templating which enables velocity-based animations.",
   "keywords": [
     "aurelia",

@@ -1,7 +1,7 @@
 declare module 'aurelia-animator-velocity' {
   import velocity from 'velocity';
   import JSOL from 'jsol';
-  import { animationEvent }  from 'aurelia-templating';
+  import { animationEvent, TemplatingEngine }  from 'aurelia-templating';
   import { DOM, PLATFORM }  from 'aurelia-pal';
   import 'velocity/velocity.ui';
   
@@ -153,4 +153,5 @@ declare module 'aurelia-animator-velocity' {
        */
     ensureList(element: any): any;
   }
+  export function configure(config: Object, callback?: ((animator: VelocityAnimator) => void)): void;
 }

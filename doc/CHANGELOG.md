@@ -1,3 +1,12 @@
+## 0.3.0 (2015-11-10)
+
+
+#### Bug Fixes
+
+* **all:** update to use TemplatingEngine to configure the animator ([1d51f9f0](https://github.com/aurelia/animator-velocity/commit/1d51f9f08a1c155d71fad44a6efe9346f73c466e))
+* **dependencies:** github version of velocity does not install correctly ([8490a63d](https://github.com/aurelia/animator-velocity/commit/8490a63d4b4a8efa940969f576932b001fd26476))
+
+
 ## 0.2.0 (2015-10-13)
 
 

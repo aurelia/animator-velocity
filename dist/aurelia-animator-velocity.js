@@ -1,6 +1,6 @@
 import velocity from 'velocity';
 import JSOL from 'jsol';
-import {animationEvent} from 'aurelia-templating';
+import {animationEvent,TemplatingEngine} from 'aurelia-templating';
 import {DOM,PLATFORM} from 'aurelia-pal';
 
 import 'velocity/velocity.ui';
@@ -361,4 +361,10 @@ export class VelocityAnimator {
 function dispatch(element, name):boid {
   let evt = DOM.createCustomEvent(animationEvent[name], {bubbles: true, cancelable: true, detail: element});
   DOM.dispatchEvent(evt);
+}
+
+export function configure(config: Object, callback?:(animator:VelocityAnimator) => void): void {
+  let animator = config.container.get(VelocityAnimator);
+  config.container.get(TemplatingEngine).configureAnimator(animator);
+  if (typeof callback === 'function') { callback(animator); }
 }
