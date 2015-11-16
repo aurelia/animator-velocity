@@ -1,1 +1,920 @@
-{"classes":[],"methods":[],"properties":[],"events":[]}
+{
+  "id": 2,
+  "name": "\"aurelia-animator-velocity\"",
+  "kind": 2,
+  "kindString": "Module",
+  "flags": {},
+  "children": [
+    {
+      "id": 3,
+      "name": "VelocityAnimator",
+      "kind": 128,
+      "kindString": "Class",
+      "flags": {
+        "isExported": true
+      },
+      "comment": {
+        "shortText": "An implementation of the Animator using Velocity."
+      },
+      "children": [
+        {
+          "id": 10,
+          "name": "constructor",
+          "kind": 512,
+          "kindString": "Constructor",
+          "flags": {
+            "isExported": true
+          },
+          "comment": {
+            "shortText": "Creates an instance of VelocityAnimator."
+          },
+          "signatures": [
+            {
+              "id": 11,
+              "name": "new VelocityAnimator",
+              "kind": 16384,
+              "kindString": "Constructor signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Creates an instance of VelocityAnimator."
+              },
+              "parameters": [
+                {
+                  "id": 12,
+                  "name": "container",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "VelocityAnimator",
+                "id": 3,
+                "moduleName": "\"aurelia-animator-velocity\""
+              }
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "easings",
+          "kind": 1024,
+          "kindString": "Property",
+          "flags": {
+            "isExported": true
+          },
+          "comment": {
+            "shortText": "Array of easing names that can be used with this animator"
+          },
+          "type": {
+            "type": "reference",
+            "name": "Array",
+            "typeArguments": [
+              {
+                "type": "instrinct",
+                "name": "string"
+              }
+            ]
+          }
+        },
+        {
+          "id": 9,
+          "name": "effects",
+          "kind": 1024,
+          "kindString": "Property",
+          "flags": {
+            "isExported": true
+          },
+          "comment": {
+            "shortText": "Effects mapped by name"
+          },
+          "type": {
+            "type": "instrinct",
+            "name": "any"
+          }
+        },
+        {
+          "id": 6,
+          "name": "enterAnimation",
+          "kind": 1024,
+          "kindString": "Property",
+          "flags": {
+            "isExported": true
+          },
+          "type": {
+            "type": "instrinct",
+            "name": "any"
+          }
+        },
+        {
+          "id": 5,
+          "name": "isAnimating",
+          "kind": 1024,
+          "kindString": "Property",
+          "flags": {
+            "isExported": true
+          },
+          "type": {
+            "type": "instrinct",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 7,
+          "name": "leaveAnimation",
+          "kind": 1024,
+          "kindString": "Property",
+          "flags": {
+            "isExported": true
+          },
+          "type": {
+            "type": "instrinct",
+            "name": "any"
+          }
+        },
+        {
+          "id": 4,
+          "name": "options",
+          "kind": 1024,
+          "kindString": "Property",
+          "flags": {
+            "isExported": true
+          },
+          "comment": {
+            "shortText": "Default options for velocity"
+          },
+          "type": {
+            "type": "instrinct",
+            "name": "any"
+          }
+        },
+        {
+          "id": 13,
+          "name": "animate",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 14,
+              "name": "animate",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Run a animation by name or by manually specifying properties and options for it",
+                "returns": "resolved when animation is complete\n"
+              },
+              "parameters": [
+                {
+                  "id": 15,
+                  "name": "element",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "Element or array of elements to animate"
+                  },
+                  "type": {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                },
+                {
+                  "id": 16,
+                  "name": "nameOrProps",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "Element properties to animate"
+                  },
+                  "type": {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                },
+                {
+                  "id": 17,
+                  "name": "options",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "Animation options"
+                  },
+                  "type": {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                },
+                {
+                  "id": 18,
+                  "name": "silent",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "instrinct",
+                    "name": "boolean"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "Promise",
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "name": "VelocityAnimator",
+                    "id": 3
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "name": "enter",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 46,
+              "name": "enter",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Run the enter animation on an element",
+                "returns": "resolved when animation is complete\n"
+              },
+              "parameters": [
+                {
+                  "id": 47,
+                  "name": "element",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "Element to stop animating"
+                  },
+                  "type": {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                },
+                {
+                  "id": 48,
+                  "name": "effectName",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                },
+                {
+                  "id": 49,
+                  "name": "options",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "Promise",
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "name": "VelocityAnimator",
+                    "id": 3
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 50,
+          "name": "leave",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 51,
+              "name": "leave",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Run the leave animation on an element",
+                "returns": "resolved when animation is complete\n"
+              },
+              "parameters": [
+                {
+                  "id": 52,
+                  "name": "element",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "Element to animate"
+                  },
+                  "type": {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                },
+                {
+                  "id": 53,
+                  "name": "effectName",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                },
+                {
+                  "id": 54,
+                  "name": "options",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "Promise",
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "name": "VelocityAnimator",
+                    "id": 3
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "name": "registerEffect",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 30,
+              "name": "registerEffect",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Register a new effect by name.\nif second parameter is a string the effect will registered as an alias",
+                "returns": "this instance for chaining\n"
+              },
+              "parameters": [
+                {
+                  "id": 31,
+                  "name": "name",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "name for the effect"
+                  },
+                  "type": {
+                    "type": "instrinct",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 32,
+                  "name": "props",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "properties for the effect"
+                  },
+                  "type": {
+                    "type": "reference",
+                    "name": "Object"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "VelocityAnimator",
+                "id": 3,
+                "moduleName": "\"aurelia-animator-velocity\""
+              }
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "name": "resolveEffectAlias",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 43,
+              "name": "resolveEffectAlias",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Resolve the real effect name from an effect alias"
+              },
+              "parameters": [
+                {
+                  "id": 44,
+                  "name": "alias",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "The effect alias."
+                  },
+                  "type": {
+                    "type": "instrinct",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "instrinct",
+                "name": "string"
+              }
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "name": "reverse",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 24,
+              "name": "reverse",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Stop an animation",
+                "returns": "this instance for chaining\n"
+              },
+              "parameters": [
+                {
+                  "id": 25,
+                  "name": "element",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "Element to animate"
+                  },
+                  "type": {
+                    "type": "reference",
+                    "name": "HTMLElement"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "VelocityAnimator",
+                "id": 3,
+                "moduleName": "\"aurelia-animator-velocity\""
+              }
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "name": "rewind",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 27,
+              "name": "rewind",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Bring animation back to the start state (this does not stop an animation)",
+                "returns": "this instance for chaining\n"
+              },
+              "parameters": [
+                {
+                  "id": 28,
+                  "name": "element",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "Element to animate"
+                  },
+                  "type": {
+                    "type": "reference",
+                    "name": "HTMLElement"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "VelocityAnimator",
+                "id": 3,
+                "moduleName": "\"aurelia-animator-velocity\""
+              }
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "name": "runSequence",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 37,
+              "name": "runSequence",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Run a seqeunce of animations one after the other",
+                "returns": "A promise for sequence completion.\n"
+              },
+              "parameters": [
+                {
+                  "id": 38,
+                  "name": "sequence",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "array of animations"
+                  },
+                  "type": {
+                    "type": "reference",
+                    "name": "Array",
+                    "typeArguments": [
+                      {
+                        "type": "instrinct",
+                        "name": "any"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "Promise",
+                "typeArguments": [
+                  {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "name": "stop",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 20,
+              "name": "stop",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Stop an animation",
+                "returns": "this instance for chaining\n"
+              },
+              "parameters": [
+                {
+                  "id": 21,
+                  "name": "element",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "Element to animate"
+                  },
+                  "type": {
+                    "type": "reference",
+                    "name": "HTMLElement"
+                  }
+                },
+                {
+                  "id": 22,
+                  "name": "clearQueue",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "clear the animation queue"
+                  },
+                  "type": {
+                    "type": "instrinct",
+                    "name": "boolean"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "VelocityAnimator",
+                "id": 3,
+                "moduleName": "\"aurelia-animator-velocity\""
+              }
+            }
+          ]
+        },
+        {
+          "id": 39,
+          "name": "stopSequence",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 40,
+              "name": "stopSequence",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Runs stop on all elements in a sequence",
+                "returns": "this instance for chaining\n"
+              },
+              "parameters": [
+                {
+                  "id": 41,
+                  "name": "sequence",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "array of animations"
+                  },
+                  "type": {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "VelocityAnimator",
+                "id": 3,
+                "moduleName": "\"aurelia-animator-velocity\""
+              }
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "name": "unregisterEffect",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 34,
+              "name": "unregisterEffect",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Unregister an effect by name",
+                "returns": "this instance for chaining\n"
+              },
+              "parameters": [
+                {
+                  "id": 35,
+                  "name": "name",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "name of the effect"
+                  },
+                  "type": {
+                    "type": "instrinct",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "VelocityAnimator",
+                "id": 3,
+                "moduleName": "\"aurelia-animator-velocity\""
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "kind": 512,
+          "children": [
+            10
+          ]
+        },
+        {
+          "title": "Properties",
+          "kind": 1024,
+          "children": [
+            8,
+            9,
+            6,
+            5,
+            7,
+            4
+          ]
+        },
+        {
+          "title": "Methods",
+          "kind": 2048,
+          "children": [
+            13,
+            45,
+            50,
+            29,
+            42,
+            23,
+            26,
+            36,
+            19,
+            39,
+            33
+          ]
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "name": "configure",
+      "kind": 64,
+      "kindString": "Function",
+      "flags": {
+        "isExported": true
+      },
+      "signatures": [
+        {
+          "id": 56,
+          "name": "configure",
+          "kind": 4096,
+          "kindString": "Call signature",
+          "flags": {},
+          "comment": {
+            "shortText": "Configuires the VelocityAnimator as the default animator for Aurelia."
+          },
+          "parameters": [
+            {
+              "id": 57,
+              "name": "config",
+              "kind": 32768,
+              "kindString": "Parameter",
+              "flags": {},
+              "comment": {
+                "text": "The FrameworkConfiguration instance."
+              },
+              "type": {
+                "type": "reference",
+                "name": "Object"
+              }
+            },
+            {
+              "id": 58,
+              "name": "callback",
+              "kind": 32768,
+              "kindString": "Parameter",
+              "flags": {
+                "isOptional": true
+              },
+              "comment": {
+                "text": "A configuration callback provided by the plugin consumer.\n"
+              },
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 59,
+                  "name": "__type",
+                  "kind": 65536,
+                  "kindString": "Type literal",
+                  "flags": {},
+                  "signatures": [
+                    {
+                      "id": 60,
+                      "name": "__call",
+                      "kind": 4096,
+                      "kindString": "Call signature",
+                      "flags": {},
+                      "parameters": [
+                        {
+                          "id": 61,
+                          "name": "animator",
+                          "kind": 32768,
+                          "kindString": "Parameter",
+                          "flags": {},
+                          "type": {
+                            "type": "reference",
+                            "name": "VelocityAnimator",
+                            "id": 3
+                          }
+                        }
+                      ],
+                      "type": {
+                        "type": "instrinct",
+                        "name": "void"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "instrinct",
+            "name": "void"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Classes",
+      "kind": 128,
+      "children": [
+        3
+      ]
+    },
+    {
+      "title": "Functions",
+      "kind": 64,
+      "children": [
+        55
+      ]
+    }
+  ]
+}

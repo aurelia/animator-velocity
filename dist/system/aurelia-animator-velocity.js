@@ -198,7 +198,7 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'veloc
 
           if (!element || element.length === 0) return Promise.resolve(element);
 
-          if (!element.animations) this.parseAttributes(element);
+          if (!element.animations) this._parseAttributes(element);
 
           if (eventName) dispatch(element, eventName + 'Begin');
 
@@ -214,20 +214,20 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'veloc
           return this.animate(element, name, opts, true);
         };
 
-        VelocityAnimator.prototype.parseAttributes = function parseAttributes(element) {
+        VelocityAnimator.prototype._parseAttributes = function _parseAttributes(element) {
           var el = undefined;
           var i = undefined;
           var l = undefined;
-          element = this.ensureList(element);
+          element = this._ensureList(element);
           for (i = 0, l = element.length; i < l; i++) {
             el = element[i];
             el.animations = {};
-            el.animations.enter = this.parseAttributeValue(el.getAttribute('anim-enter')) || this.enterAnimation;
-            el.animations.leave = this.parseAttributeValue(el.getAttribute('anim-leave')) || this.leaveAnimation;
+            el.animations.enter = this._parseAttributeValue(el.getAttribute('anim-enter')) || this.enterAnimation;
+            el.animations.leave = this._parseAttributeValue(el.getAttribute('anim-leave')) || this.leaveAnimation;
           }
         };
 
-        VelocityAnimator.prototype.parseAttributeValue = function parseAttributeValue(value) {
+        VelocityAnimator.prototype._parseAttributeValue = function _parseAttributeValue(value) {
           if (!value) return value;
           var p = value.split(';');
           var properties = p[0];
@@ -241,7 +241,7 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'veloc
           return { properties: properties, options: options };
         };
 
-        VelocityAnimator.prototype.ensureList = function ensureList(element) {
+        VelocityAnimator.prototype._ensureList = function _ensureList(element) {
           if (!Array.isArray(element) && !(element instanceof NodeList)) element = [element];
           return element;
         };

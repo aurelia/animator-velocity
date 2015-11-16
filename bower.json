@@ -1,6 +1,6 @@
 {
   "name": "aurelia-animator-velocity",
-  "version": "0.3.0",
+  "version": "1.0.0-beta.1",
   "description": "An implementation of the abstract Animator interface from templating which enables velocity-based animations.",
   "keywords": [
     "aurelia",
@@ -18,10 +18,10 @@
     "url": "https://github.com/aurelia/animator-velocity"
   },
   "dependencies": {
-    "aurelia-metadata": "^0.10.0",
-    "aurelia-pal": "^0.3.0",
-    "aurelia-templating": "^0.17.0",
-    "jsol": "daepark/JSOL@master",
-    "velocity": "^1.2.3"
+    "aurelia-metadata": "^1.0.0-beta.1",
+    "aurelia-pal": "^1.0.0-beta.1",
+    "aurelia-templating": "^1.0.0-beta.1",
+    "velocity": "^1.2.3",
+    "jsol": "daepark/JSOL@master"
   }
 }

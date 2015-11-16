@@ -127,7 +127,7 @@ export class VelocityAnimator {
    * @param props properties for the effect
    * @return this instance for chaining
    */
-  registerEffect(name:string, props:object): VelocityAnimator {
+  registerEffect(name:string, props: Object): VelocityAnimator {
     if (name[0] === ':') {
       if (typeof props === 'string') {
         this.effects[name] = props;
