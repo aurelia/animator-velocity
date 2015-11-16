@@ -5,13 +5,12 @@ import { animationEvent } from 'aurelia-templating';
 import {DOM, PLATFORM} from 'aurelia-pal';
 
 /**
- * Aurelia animator implementation using Velocity
+ * An implementation of the Animator using Velocity.
  */
 export class VelocityAnimator {
 
   /**
    * Default options for velocity
-   * @type {Object}
    */
   options:any = {
     duration: 400,
@@ -25,21 +24,20 @@ export class VelocityAnimator {
 
   /**
    * Array of easing names that can be used with this animator
-   *
-   * @type {Array}
    */
   easings:Array<string> = [];
 
   /**
    * Effects mapped by name
-   *
-   * @type {Object}
    */
   effects:any = {
     ':enter': 'fadeIn',
     ':leave': 'fadeOut'
   };
 
+  /**
+   * Creates an instance of VelocityAnimator.
+   */
   constructor(container:any) {
     this.container = container || DOM;
     this.easings = Object.assign(velocity.Easings, this.easings);
@@ -51,13 +49,12 @@ export class VelocityAnimator {
   /**
    * Run a animation by name or by manually specifying properties and options for it
    *
-   * @param element {HTMLElement|Array<HTMLElement>}    Element or array of elements to animate
-   * @param nameOrProps {String|Object}                       Element properties to animate
-   * @param options {Object}                            Animation options
-   *
-   * @returns {Promise} resolved when animation is complete
+   * @param element Element or array of elements to animate
+   * @param nameOrProps Element properties to animate
+   * @param options Animation options
+   * @return resolved when animation is complete
    */
-  animate(element:any, nameOrProps:any, options:any, silent:boolean):VelocityAnimator {
+  animate(element:any, nameOrProps:any, options:any, silent:boolean): Promise<VelocityAnimator> {
     this.isAnimating = true;
     let _this = this;
     let overrides = {
@@ -93,13 +90,11 @@ export class VelocityAnimator {
 
   /**
    * Stop an animation
-   *
-   * @param element {HTMLElement}   Element to animate
-   * @param clearQueue {boolean}    clear the animation queue
-   *
-   * @returns {Animator} return this instance for chaining
+   * @param element Element to animate
+   * @param clearQueue clear the animation queue
+   * @return this instance for chaining
    */
-  stop(element:HTMLElement, clearQueue:boolean):VelocityAnimator {
+  stop(element:HTMLElement, clearQueue:boolean): VelocityAnimator {
     velocity(element, 'stop', clearQueue);
     this.isAnimating = false;
     return this;
@@ -107,37 +102,32 @@ export class VelocityAnimator {
 
   /**
    * Stop an animation
-   *
-   * @param element {HTMLElement}   Element to animate
-   *
-   * @returns {Animator} return this instance for chaining
+   * @param element Element to animate
+   * @return this instance for chaining
    */
-  reverse(element:HTMLElement):VelocityAnimator {
+  reverse(element:HTMLElement): VelocityAnimator {
     velocity(element, 'reverse');
     return this;
   }
 
   /**
    * Bring animation back to the start state (this does not stop an animation)
-   *
    * @param element {HTMLElement}   Element to animate
-   *
-   * @returns {Animator} return this instance for chaining
+   * @return this instance for chaining
    */
-  rewind(element:HTMLElement):VelocityAnimator {
+  rewind(element:HTMLElement): VelocityAnimator {
     velocity(name, 'rewind');
     return this;
   }
 
   /**
    * Register a new effect by name.
-   *
    * if second parameter is a string the effect will registered as an alias
-   *
-   * @param name {String}   name for the effect
-   * @param props {Object}  properties for the effect
+   * @param name name for the effect
+   * @param props properties for the effect
+   * @return this instance for chaining
    */
-  registerEffect(name:string, props:object):VelocityAnimator {
+  registerEffect(name:string, props:object): VelocityAnimator {
     if (name[0] === ':') {
       if (typeof props === 'string') {
         this.effects[name] = props;
@@ -152,20 +142,20 @@ export class VelocityAnimator {
 
   /**
    * Unregister an effect by name
-   *
-   * @param name {String}   name of the effect
+   * @param name name of the effect
+   * @return this instance for chaining
    */
-  unregisterEffect(name:string):VelocityAnimator {
+  unregisterEffect(name:string): VelocityAnimator {
     delete this.effects[name];
     return this;
   }
 
   /**
    * Run a seqeunce of animations one after the other
-   *
-   * @param sequence {Array}  array of animations
+   * @param sequence array of animations
+   * @return A promise for sequence completion.
    */
-  runSequence(sequence:Array<any>):Promise {
+  runSequence(sequence:Array<any>): Promise<any> {
     dispatch(PLATFORM.global, 'sequenceBegin');
     return new Promise((resolve, reject) => {
       this.sequenceReject = resolve;
@@ -187,11 +177,11 @@ export class VelocityAnimator {
   }
 
   /**
-   * runs stop on all elements in a sequence
-   *
-   * @param sequence {Array}  array of animations
+   * Runs stop on all elements in a sequence
+   * @param sequence array of animations
+   * @return this instance for chaining
    */
-  stopSequence(sequence):VelocityAnimator {
+  stopSequence(sequence): VelocityAnimator {
     sequence.map(item=> {
       let el = item.e || item.element || item.elements;
       this.stop(el, true);
@@ -206,8 +196,10 @@ export class VelocityAnimator {
 
   /**
    * Resolve the real effect name from an effect alias
+   * @param alias The effect alias.
+   * @param The resolved value.
    */
-  resolveEffectAlias(alias:string):string {
+  resolveEffectAlias(alias: string): string {
     //resolve alias if string start with a colon
     if (typeof alias === 'string' && alias[0] === ':') {
       return this.effects[alias];
@@ -219,34 +211,28 @@ export class VelocityAnimator {
 
   /**
    * Run the enter animation on an element
-   *
-   * @param element {HTMLElement}   Element to stop animating
-   *
-   * @returns {Promise} resolved when animation is complete
+   * @param element Element to stop animating
+   * @return resolved when animation is complete
    */
-  enter(element:any, effectName:any, options:any):VelocityAnimator {
+  enter(element:any, effectName:any, options:any): Promise<VelocityAnimator> {
     return this.stop(element, true)._runElementAnimation(element, effectName || ':enter', options, 'enter');
   }
 
   /**
    * Run the leave animation on an element
-   *
-   * @param element {HTMLElement}   Element to animate
-   *
-   * @returns {Promise} resolved when animation is complete
+   * @param element Element to animate
+   * @returns resolved when animation is complete
    */
-  leave(element, effectName, options):VelocityAnimator {
+  leave(element: any, effectName: any, options: any): Promise<VelocityAnimator> {
     return this.stop(element, true)._runElementAnimation(element, effectName || ':leave', options, 'leave');
   }
 
   /**
    * Run an animation on several elements
-   *
-   * @param element {HTMLElement}   Element to animate
-   *
-   * @returns {Promise} resolved when animation is complete
+   * @param element Element to animate
+   * @return when animation is complete
    */
-  _runElements(element, name, options = {}):Promise {
+  _runElements(element: any, name: any, options: any = {}): Promise<VelocityAnimator> {
     //if nothing was found or no element was passed resolve the promise immediatly
     if (!element) return Promise.reject(new Error('invalid first argument'));
 
@@ -286,7 +272,7 @@ export class VelocityAnimator {
     if (!element || element.length === 0) return Promise.resolve(element);
 
     //parse animation properties
-    if (!element.animations) this.parseAttributes(element);
+    if (!element.animations) this._parseAttributes(element);
 
     if (eventName) dispatch(element, eventName + 'Begin');
 
@@ -308,16 +294,16 @@ export class VelocityAnimator {
    *
    * @param element {HTMLElement|Array<HTMLElement>}   Element(s) to parse
    */
-  parseAttributes(element:any):void {
+  _parseAttributes(element:any):void {
     let el;
     let i;
     let l;
-    element = this.ensureList(element);
+    element = this._ensureList(element);
     for (i = 0, l = element.length; i < l; i++) {
       el = element[i];
       el.animations = {};
-      el.animations.enter = this.parseAttributeValue(el.getAttribute('anim-enter')) || this.enterAnimation;
-      el.animations.leave = this.parseAttributeValue(el.getAttribute('anim-leave')) || this.leaveAnimation;
+      el.animations.enter = this._parseAttributeValue(el.getAttribute('anim-enter')) || this.enterAnimation;
+      el.animations.leave = this._parseAttributeValue(el.getAttribute('anim-leave')) || this.leaveAnimation;
     }
   }
 
@@ -330,7 +316,7 @@ export class VelocityAnimator {
    * @param value           Attribute value
    * @returns {Object}      Object with the effectName/properties and options that have been extracted
    */
-  parseAttributeValue(value:any):any {
+  _parseAttributeValue(value:any):any {
     if (!value) return value;
     let p = value.split(';');
     let properties = p[0];
@@ -347,11 +333,10 @@ export class VelocityAnimator {
   /**
    * Turn an element into an array of elements if it's not an array yet or a Nodelist
    */
-  ensureList(element:any):any {
+  _ensureList(element:any):any {
     if (!Array.isArray(element) && !(element instanceof NodeList)) element = [element];
     return element;
   }
-
 }
 
 /**
