@@ -228,6 +228,28 @@ export class VelocityAnimator {
   }
 
   /**
+   * Add a class to an element to trigger an animation.
+   * @param element Element to animate
+   * @param className Properties to animate or name of the effect to use
+   * @returns Resolved when the animation is done
+   */
+  removeClass(element: HTMLElement, className: string): Promise<boolean> {
+    element.classList.remove(className);
+    return Promise.resolve(false);
+  }
+
+  /**
+   * Add a class to an element to trigger an animation.
+   * @param element Element to animate
+   * @param className Properties to animate or name of the effect to use
+   * @returns Resolved when the animation is done
+   */
+  addClass(element: HTMLElement, className: string): Promise<boolean> {
+    element.classList.add(className);
+    return Promise.resolve(false);
+  }
+
+  /**
    * Run an animation on several elements
    * @param element Element to animate
    * @return when animation is complete
