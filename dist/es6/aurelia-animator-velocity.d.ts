@@ -117,6 +117,22 @@ declare module 'aurelia-animator-velocity' {
        * @returns resolved when animation is complete
        */
     leave(element: any, effectName: any, options: any): Promise<VelocityAnimator>;
+    
+    /**
+       * Add a class to an element to trigger an animation.
+       * @param element Element to animate
+       * @param className Properties to animate or name of the effect to use
+       * @returns Resolved when the animation is done
+       */
+    removeClass(element: HTMLElement, className: string): Promise<boolean>;
+    
+    /**
+       * Add a class to an element to trigger an animation.
+       * @param element Element to animate
+       * @param className Properties to animate or name of the effect to use
+       * @returns Resolved when the animation is done
+       */
+    addClass(element: HTMLElement, className: string): Promise<boolean>;
   }
   
   /**

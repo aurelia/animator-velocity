@@ -159,6 +159,16 @@ var VelocityAnimator = (function () {
     return this.stop(element, true)._runElementAnimation(element, effectName || ':leave', options, 'leave');
   };
 
+  VelocityAnimator.prototype.removeClass = function removeClass(element, className) {
+    element.classList.remove(className);
+    return Promise.resolve(false);
+  };
+
+  VelocityAnimator.prototype.addClass = function addClass(element, className) {
+    element.classList.add(className);
+    return Promise.resolve(false);
+  };
+
   VelocityAnimator.prototype._runElements = function _runElements(element, name) {
     var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 

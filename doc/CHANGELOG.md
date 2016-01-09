@@ -1,3 +1,11 @@
+### 1.0.0-beta.1.0.1 (2016-01-08)
+
+
+#### Bug Fixes
+
+* **animator:** add missing addClass and removeClass interface memebers ([67a8793f](https://github.com/aurelia/animator-velocity/commit/67a8793fcac53ab7d079d619050377f529bc29c5))
+
+
 ### 0.3.3 (2015-11-16)
 
 
@@ -22,4 +30,3 @@
 
 
 ## 0.1.0 (2015-10-04)
-

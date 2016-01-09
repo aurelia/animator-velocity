@@ -154,6 +154,68 @@
           }
         },
         {
+          "id": 59,
+          "name": "addClass",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 60,
+              "name": "addClass",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Add a class to an element to trigger an animation.",
+                "returns": "Resolved when the animation is done\n"
+              },
+              "parameters": [
+                {
+                  "id": 61,
+                  "name": "element",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "Element to animate"
+                  },
+                  "type": {
+                    "type": "reference",
+                    "name": "HTMLElement"
+                  }
+                },
+                {
+                  "id": 62,
+                  "name": "className",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "Properties to animate or name of the effect to use"
+                  },
+                  "type": {
+                    "type": "instrinct",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "Promise",
+                "typeArguments": [
+                  {
+                    "type": "instrinct",
+                    "name": "boolean"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
           "id": 13,
           "name": "animate",
           "kind": 2048,
@@ -437,6 +499,68 @@
                 "name": "VelocityAnimator",
                 "id": 3,
                 "moduleName": "\"aurelia-animator-velocity\""
+              }
+            }
+          ]
+        },
+        {
+          "id": 55,
+          "name": "removeClass",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 56,
+              "name": "removeClass",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Add a class to an element to trigger an animation.",
+                "returns": "Resolved when the animation is done\n"
+              },
+              "parameters": [
+                {
+                  "id": 57,
+                  "name": "element",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "Element to animate"
+                  },
+                  "type": {
+                    "type": "reference",
+                    "name": "HTMLElement"
+                  }
+                },
+                {
+                  "id": 58,
+                  "name": "className",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "Properties to animate or name of the effect to use"
+                  },
+                  "type": {
+                    "type": "instrinct",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "Promise",
+                "typeArguments": [
+                  {
+                    "type": "instrinct",
+                    "name": "boolean"
+                  }
+                ]
               }
             }
           ]
@@ -795,10 +919,12 @@
           "title": "Methods",
           "kind": 2048,
           "children": [
+            59,
             13,
             45,
             50,
             29,
+            55,
             42,
             23,
             26,
@@ -811,7 +937,7 @@
       ]
     },
     {
-      "id": 55,
+      "id": 63,
       "name": "configure",
       "kind": 64,
       "kindString": "Function",
@@ -820,7 +946,7 @@
       },
       "signatures": [
         {
-          "id": 56,
+          "id": 64,
           "name": "configure",
           "kind": 4096,
           "kindString": "Call signature",
@@ -830,7 +956,7 @@
           },
           "parameters": [
             {
-              "id": 57,
+              "id": 65,
               "name": "config",
               "kind": 32768,
               "kindString": "Parameter",
@@ -844,7 +970,7 @@
               }
             },
             {
-              "id": 58,
+              "id": 66,
               "name": "callback",
               "kind": 32768,
               "kindString": "Parameter",
@@ -857,21 +983,21 @@
               "type": {
                 "type": "reflection",
                 "declaration": {
-                  "id": 59,
+                  "id": 67,
                   "name": "__type",
                   "kind": 65536,
                   "kindString": "Type literal",
                   "flags": {},
                   "signatures": [
                     {
-                      "id": 60,
+                      "id": 68,
                       "name": "__call",
                       "kind": 4096,
                       "kindString": "Call signature",
                       "flags": {},
                       "parameters": [
                         {
-                          "id": 61,
+                          "id": 69,
                           "name": "animator",
                           "kind": 32768,
                           "kindString": "Parameter",
@@ -913,7 +1039,7 @@
       "title": "Functions",
       "kind": 64,
       "children": [
-        55
+        63
       ]
     }
   ]
