@@ -1,4 +1,4 @@
-define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'velocity/velocity.ui'], function (exports, _velocity, _jsol, _aureliaTemplating, _aureliaPal, _velocityVelocityUi) {
+define(['exports', 'velocity-animate', 'aurelia-templating', 'aurelia-pal', 'velocity-animate/velocity.ui'], function (exports, _velocityAnimate, _aureliaTemplating, _aureliaPal, _velocityAnimateVelocityUi) {
   'use strict';
 
   exports.__esModule = true;
@@ -8,9 +8,7 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'vel
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-  var _velocity2 = _interopRequireDefault(_velocity);
-
-  var _JSOL = _interopRequireDefault(_jsol);
+  var _velocity = _interopRequireDefault(_velocityAnimate);
 
   var VelocityAnimator = (function () {
     function VelocityAnimator(container) {
@@ -30,8 +28,8 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'vel
       };
 
       this.container = container || _aureliaPal.DOM;
-      this.easings = Object.assign(_velocity2['default'].Easings, this.easings);
-      this.effects = Object.assign(_velocity2['default'].Redirects, this.effects);
+      this.easings = Object.assign(_velocity['default'].Easings, this.easings);
+      this.effects = Object.assign(_velocity['default'].Redirects, this.effects);
     }
 
     VelocityAnimator.prototype.animate = function animate(element, nameOrProps, options, silent) {
@@ -57,25 +55,25 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'vel
       }
 
       var opts = Object.assign({}, this.options, options, overrides);
-      var p = _velocity2['default'](element, nameOrProps, opts);
+      var p = _velocity['default'](element, nameOrProps, opts);
 
       if (!p) return Promise.reject(new Error('invalid element used for animator.animate'));
       return p;
     };
 
     VelocityAnimator.prototype.stop = function stop(element, clearQueue) {
-      _velocity2['default'](element, 'stop', clearQueue);
+      _velocity['default'](element, 'stop', clearQueue);
       this.isAnimating = false;
       return this;
     };
 
     VelocityAnimator.prototype.reverse = function reverse(element) {
-      _velocity2['default'](element, 'reverse');
+      _velocity['default'](element, 'reverse');
       return this;
     };
 
     VelocityAnimator.prototype.rewind = function rewind(element) {
-      _velocity2['default'](name, 'rewind');
+      _velocity['default'](name, 'rewind');
       return this;
     };
 
@@ -87,7 +85,7 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'vel
           throw new Error('second parameter must be a string when registering aliases');
         }
       } else {
-        _velocity2['default'].RegisterEffect(name, props);
+        _velocity['default'].RegisterEffect(name, props);
       }
       return this;
     };
@@ -112,7 +110,7 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'vel
           resolve();
         };
         try {
-          _velocity2['default'].RunSequence(sequence);
+          _velocity['default'].RunSequence(sequence);
         } catch (e) {
           _this2.stopSequence(sequence);
           _this2.sequenceReject(e);
@@ -217,16 +215,22 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'vel
     };
 
     VelocityAnimator.prototype._parseAttributeValue = function _parseAttributeValue(value) {
-      if (!value) return value;
+      if (!value) {
+        return value;
+      }
+
       var p = value.split(';');
-      var properties = p[0];
+      var properties = p[0].trim();
       var options = {};
-      if (properties[0] === '{' && properties[properties.length - 1] === '}') properties = _JSOL['default'].parse(properties);
+
+      if (properties[0] === '{' && properties[properties.length - 1] === '}') {
+        properties = parseJSObject(properties);
+      }
 
       if (p.length > 1) {
-        options = p[1];
-        options = _JSOL['default'].parse(options);
+        options = parseJSObject(p[1].trim());
       }
+
       return { properties: properties, options: options };
     };
 
@@ -243,6 +247,23 @@ define(['exports', 'velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'vel
   function dispatch(element, name) {
     var evt = _aureliaPal.DOM.createCustomEvent(_aureliaTemplating.animationEvent[name], { bubbles: true, cancelable: true, detail: element });
     _aureliaPal.DOM.dispatchEvent(evt);
+  }
+
+  function parseJSObject(text) {
+    if (typeof text !== 'string' || !text) {
+      return null;
+    }
+
+    text = text.replace('{', '').replace('}', '');
+    var pairs = text.split(',');
+    var obj = {};
+
+    for (var i = 0; i < pairs.length; ++i) {
+      var keyAndValue = pairs[i].split(':');
+      obj[keyAndValue[0].trim()] = keyAndValue[1].trim();
+    }
+
+    return obj;
   }
 
   function configure(config, callback) {

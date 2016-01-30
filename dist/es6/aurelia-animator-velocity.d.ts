@@ -1,9 +1,8 @@
 declare module 'aurelia-animator-velocity' {
-  import velocity from 'velocity';
-  import JSOL from 'jsol';
+  import velocity from 'velocity-animate';
   import { animationEvent, TemplatingEngine }  from 'aurelia-templating';
   import { DOM, PLATFORM }  from 'aurelia-pal';
-  import 'velocity/velocity.ui';
+  import 'velocity-animate/velocity.ui';
   
   /**
    * An implementation of the Animator using Velocity.

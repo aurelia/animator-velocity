@@ -1,3 +1,12 @@
+### 1.0.0-beta.1.1.3 (2016-01-30)
+
+
+#### Bug Fixes
+
+* **all:** add d.ts for velocity to build docs ([12357557](https://github.com/aurelia/animator-velocity/commit/12357557e1161a8e90f0488f92d9c378cf4f3bb5))
+* **animator:** remove json and replace with simple parser ([a82e59e8](https://github.com/aurelia/animator-velocity/commit/a82e59e87b2ba2c9bcf806a5079562a6b12889e3))
+
+
 ### 1.0.0-beta.1.1.0 (2016-01-29)
 
 

@@ -1,7 +1,7 @@
-System.register(['velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'velocity/velocity.ui'], function (_export) {
+System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'velocity-animate/velocity.ui'], function (_export) {
   'use strict';
 
-  var velocity, JSOL, animationEvent, TemplatingEngine, DOM, PLATFORM, VelocityAnimator;
+  var velocity, animationEvent, TemplatingEngine, DOM, PLATFORM, VelocityAnimator;
 
   _export('configure', configure);
 
@@ -10,6 +10,23 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'veloc
   function dispatch(element, name) {
     var evt = DOM.createCustomEvent(animationEvent[name], { bubbles: true, cancelable: true, detail: element });
     DOM.dispatchEvent(evt);
+  }
+
+  function parseJSObject(text) {
+    if (typeof text !== 'string' || !text) {
+      return null;
+    }
+
+    text = text.replace('{', '').replace('}', '');
+    var pairs = text.split(',');
+    var obj = {};
+
+    for (var i = 0; i < pairs.length; ++i) {
+      var keyAndValue = pairs[i].split(':');
+      obj[keyAndValue[0].trim()] = keyAndValue[1].trim();
+    }
+
+    return obj;
   }
 
   function configure(config, callback) {
@@ -21,17 +38,15 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'veloc
   }
 
   return {
-    setters: [function (_velocity) {
-      velocity = _velocity['default'];
-    }, function (_jsol) {
-      JSOL = _jsol['default'];
+    setters: [function (_velocityAnimate) {
+      velocity = _velocityAnimate['default'];
     }, function (_aureliaTemplating) {
       animationEvent = _aureliaTemplating.animationEvent;
       TemplatingEngine = _aureliaTemplating.TemplatingEngine;
     }, function (_aureliaPal) {
       DOM = _aureliaPal.DOM;
       PLATFORM = _aureliaPal.PLATFORM;
-    }, function (_velocityVelocityUi) {}],
+    }, function (_velocityAnimateVelocityUi) {}],
     execute: function () {
       VelocityAnimator = (function () {
         function VelocityAnimator(container) {
@@ -238,16 +253,22 @@ System.register(['velocity', 'jsol', 'aurelia-templating', 'aurelia-pal', 'veloc
         };
 
         VelocityAnimator.prototype._parseAttributeValue = function _parseAttributeValue(value) {
-          if (!value) return value;
+          if (!value) {
+            return value;
+          }
+
           var p = value.split(';');
-          var properties = p[0];
+          var properties = p[0].trim();
           var options = {};
-          if (properties[0] === '{' && properties[properties.length - 1] === '}') properties = JSOL.parse(properties);
+
+          if (properties[0] === '{' && properties[properties.length - 1] === '}') {
+            properties = parseJSObject(properties);
+          }
 
           if (p.length > 1) {
-            options = p[1];
-            options = JSOL.parse(options);
+            options = parseJSObject(p[1].trim());
           }
+
           return { properties: properties, options: options };
         };
 

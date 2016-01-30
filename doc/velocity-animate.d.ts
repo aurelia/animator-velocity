@@ -79,4 +79,7 @@ declare module 'velocity-animate' {
 		 */
 		hook(element: HTMLElement, cssKey: string, cssValue: string): void;
 	}
+
+	let instance: VelocityStatic;
+	export default instance;
 }
