@@ -1,6 +1,5 @@
 import velocity from 'velocity-animate';
 import 'velocity-animate/velocity.ui';
-import JSOL from 'jsol';
 import { animationEvent } from 'aurelia-templating';
 import {DOM, PLATFORM} from 'aurelia-pal';
 
@@ -332,23 +331,29 @@ export class VelocityAnimator {
   /**
    * Parse an attribute value as an animation definition
    *
-   * syntax with effectname:     effectName:{prop1:value, prop2:value}
-   * syntax with properties:     {prop1:value, prop2:value}:{prop1:value, prop2:value}
+   * syntax with effectname:     effectName;{prop1:value, prop2:value}
+   * syntax with properties:     {prop1:value, prop2:value};{prop1:value, prop2:value}
    *
    * @param value           Attribute value
    * @returns {Object}      Object with the effectName/properties and options that have been extracted
    */
   _parseAttributeValue(value:any):any {
-    if (!value) return value;
+    if (!value) {
+      return value;
+    }
+
     let p = value.split(';');
-    let properties = p[0];
+    let properties = p[0].trim();
     let options = {};
-    if (properties[0] === '{' && properties[properties.length - 1] === '}') properties = JSOL.parse(properties);
+
+    if (properties[0] === '{' && properties[properties.length - 1] === '}') {
+      properties = parseJSObject(properties);
+    }
 
     if (p.length > 1) {
-      options = p[1];
-      options = JSOL.parse(options);
+      options = parseJSObject(p[1].trim());
     }
+
     return {properties, options};
   }
 
@@ -361,11 +366,24 @@ export class VelocityAnimator {
   }
 }
 
-/**
- * Dispatch an event on an element
- * This method will resolved a simple animation into it's full event name name defined by aurelia-templating.
- */
 function dispatch(element, name):boid {
   let evt = DOM.createCustomEvent(animationEvent[name], {bubbles: true, cancelable: true, detail: element});
   DOM.dispatchEvent(evt);
+}
+
+function parseJSObject(text) {
+  if (typeof text !== 'string' || !text) {
+    return null;
+  }
+
+  text = text.replace('{', '').replace('}', '');
+  let pairs = text.split(',');
+  let obj = {};
+
+  for(let i = 0; i < pairs.length; ++i) {
+    let keyAndValue = pairs[i].split(':');
+    obj[keyAndValue[0].trim()] = keyAndValue[1].trim();
+  }
+
+  return obj;
 }
