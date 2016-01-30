@@ -42,7 +42,7 @@ declare module 'aurelia-animator-velocity' {
        * @param options Animation options
        * @return resolved when animation is complete
        */
-    animate(element: any, nameOrProps: any, options: any, silent: boolean): Promise<VelocityAnimator>;
+    animate(element: any, nameOrProps: any, options?: any, silent?: boolean): Promise<VelocityAnimator>;
     
     /**
        * Stop an animation

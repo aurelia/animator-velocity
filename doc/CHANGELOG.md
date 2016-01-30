@@ -1,3 +1,16 @@
+### 1.0.0-beta.1.1.0 (2016-01-29)
+
+
+#### Bug Fixes
+
+* **animator:** mark animate params as optional ([b6888ba6](https://github.com/aurelia/animator-velocity/commit/b6888ba645810911ac490d7b8ee121574500700d))
+
+
+#### Features
+
+* **all:** update jspm meta; core-js; aurelia deps ([aa84d30d](https://github.com/aurelia/animator-velocity/commit/aa84d30d3cc1b63eee633d105289af768eb4deaf))
+
+
 ### 1.0.0-beta.1.0.1 (2016-01-08)
 
 

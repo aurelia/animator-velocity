@@ -268,7 +268,9 @@
                   "name": "options",
                   "kind": 32768,
                   "kindString": "Parameter",
-                  "flags": {},
+                  "flags": {
+                    "isOptional": true
+                  },
                   "comment": {
                     "text": "Animation options"
                   },
@@ -282,7 +284,9 @@
                   "name": "silent",
                   "kind": 32768,
                   "kindString": "Parameter",
-                  "flags": {},
+                  "flags": {
+                    "isOptional": true
+                  },
                   "type": {
                     "type": "instrinct",
                     "name": "boolean"
