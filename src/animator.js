@@ -380,7 +380,7 @@ function parseJSObject(text) {
   let pairs = text.split(',');
   let obj = {};
 
-  for(let i = 0; i < pairs.length; ++i) {
+  for (let i = 0; i < pairs.length; ++i) {
     let keyAndValue = pairs[i].split(':');
     obj[keyAndValue[0].trim()] = keyAndValue[1].trim();
   }
