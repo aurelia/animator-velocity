@@ -1,5 +1,5 @@
-import velocity from 'velocity';
-import 'velocity/velocity.ui';
+import velocity from 'velocity-animate';
+import 'velocity-animate/velocity.ui';
 import JSOL from 'jsol';
 import { animationEvent } from 'aurelia-templating';
 import {DOM, PLATFORM} from 'aurelia-pal';

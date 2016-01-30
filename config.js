@@ -22,7 +22,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.35",
     "core-js": "npm:core-js@2.0.3",
     "jsol": "github:daepark/JSOL@master",
-    "velocity": "npm:velocity-animate@1.2.3",
+    "velocity-animate": "npm:velocity-animate@1.2.3",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },
