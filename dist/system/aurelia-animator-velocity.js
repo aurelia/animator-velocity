@@ -1,11 +1,13 @@
-System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'velocity-animate/velocity.ui'], function (_export) {
-  'use strict';
+'use strict';
 
+System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'velocity-animate/velocity.ui'], function (_export, _context) {
   var velocity, animationEvent, TemplatingEngine, DOM, PLATFORM, VelocityAnimator;
 
-  _export('configure', configure);
-
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
 
   function dispatch(element, name) {
     var evt = DOM.createCustomEvent(animationEvent[name], { bubbles: true, cancelable: true, detail: element });
@@ -29,17 +31,9 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
     return obj;
   }
 
-  function configure(config, callback) {
-    var animator = config.container.get(VelocityAnimator);
-    config.container.get(TemplatingEngine).configureAnimator(animator);
-    if (typeof callback === 'function') {
-      callback(animator);
-    }
-  }
-
   return {
     setters: [function (_velocityAnimate) {
-      velocity = _velocityAnimate['default'];
+      velocity = _velocityAnimate.default;
     }, function (_aureliaTemplating) {
       animationEvent = _aureliaTemplating.animationEvent;
       TemplatingEngine = _aureliaTemplating.TemplatingEngine;
@@ -48,7 +42,7 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
       PLATFORM = _aureliaPal.PLATFORM;
     }, function (_velocityAnimateVelocityUi) {}],
     execute: function () {
-      VelocityAnimator = (function () {
+      _export('VelocityAnimator', VelocityAnimator = function () {
         function VelocityAnimator(container) {
           _classCallCheck(this, VelocityAnimator);
 
@@ -240,9 +234,9 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
         };
 
         VelocityAnimator.prototype._parseAttributes = function _parseAttributes(element) {
-          var el = undefined;
-          var i = undefined;
-          var l = undefined;
+          var el = void 0;
+          var i = void 0;
+          var l = void 0;
           element = this._ensureList(element);
           for (i = 0, l = element.length; i < l; i++) {
             el = element[i];
@@ -278,9 +272,19 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
         };
 
         return VelocityAnimator;
-      })();
+      }());
 
       _export('VelocityAnimator', VelocityAnimator);
+
+      function configure(config, callback) {
+        var animator = config.container.get(VelocityAnimator);
+        config.container.get(TemplatingEngine).configureAnimator(animator);
+        if (typeof callback === 'function') {
+          callback(animator);
+        }
+      }
+
+      _export('configure', configure);
     }
   };
 });

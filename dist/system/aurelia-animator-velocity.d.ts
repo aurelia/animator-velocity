@@ -1,7 +1,13 @@
 declare module 'aurelia-animator-velocity' {
   import velocity from 'velocity-animate';
-  import { animationEvent, TemplatingEngine }  from 'aurelia-templating';
-  import { DOM, PLATFORM }  from 'aurelia-pal';
+  import {
+    animationEvent,
+    TemplatingEngine
+  } from 'aurelia-templating';
+  import {
+    DOM,
+    PLATFORM
+  } from 'aurelia-pal';
   import 'velocity-animate/velocity.ui';
   
   /**
@@ -32,7 +38,7 @@ declare module 'aurelia-animator-velocity' {
        */
     constructor(container: any);
     
-    // --------------------------------- Aurelia Animator interface
+    //--------------------------------- Aurelia Animator interface
     /**
        * Run a animation by name or by manually specifying properties and options for it
        *
@@ -102,7 +108,7 @@ declare module 'aurelia-animator-velocity' {
        */
     resolveEffectAlias(alias: string): string;
     
-    // --------- The enter and leave animations are called for each page transition made by the router
+    //--------- The enter and leave animations are called for each page transition made by the router
     /**
        * Run the enter animation on an element
        * @param element Element to stop animating
