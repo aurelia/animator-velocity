@@ -1,0 +1,1 @@
+export * from 'aurelia-animator-velocity/aurelia-animator-velocity';

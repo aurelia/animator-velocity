@@ -15,15 +15,11 @@ define(['exports', 'velocity-animate', 'aurelia-templating', 'aurelia-pal', 'vel
     };
   }
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
+  
 
   var VelocityAnimator = exports.VelocityAnimator = function () {
     function VelocityAnimator(container) {
-      _classCallCheck(this, VelocityAnimator);
+      
 
       this.options = {
         duration: 400,
@@ -181,6 +177,8 @@ define(['exports', 'velocity-animate', 'aurelia-templating', 'aurelia-pal', 'vel
       for (var i = 0; i < element.length; i++) {
         this._runElementAnimation(element[i], name, options);
       }
+
+      return Promise.resolve(element);
     };
 
     VelocityAnimator.prototype._runElementAnimation = function _runElementAnimation(element, name) {

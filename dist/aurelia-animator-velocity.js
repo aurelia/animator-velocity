@@ -266,6 +266,8 @@ export class VelocityAnimator {
     for (let i = 0; i < element.length; i++) {
       this._runElementAnimation(element[i], name, options);
     }
+
+    return Promise.resolve(element);
   }
 
   //--------------------------------- Private methods
@@ -282,7 +284,7 @@ export class VelocityAnimator {
    *
    * @returns {Promise} resolved when animation is complete
    */
-  _runElementAnimation(element:HTMLElement, name:string, options:any = {}, eventName:string = undefined):Promise {
+  _runElementAnimation(element:HTMLElement, name:string, options:any = {}, eventName:string = undefined): Promise<any> {
     //if nothing was found or no element was passed resolve the promise immediatly
     if (!element) return Promise.reject(new Error('invalid first argument'));
 

@@ -156,6 +156,8 @@ export let VelocityAnimator = class VelocityAnimator {
     for (let i = 0; i < element.length; i++) {
       this._runElementAnimation(element[i], name, options);
     }
+
+    return Promise.resolve(element);
   }
 
   _runElementAnimation(element, name, options = {}, eventName = undefined) {

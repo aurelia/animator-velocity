@@ -1,13 +1,11 @@
 'use strict';
 
 System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'velocity-animate/velocity.ui'], function (_export, _context) {
+  "use strict";
+
   var velocity, animationEvent, TemplatingEngine, DOM, PLATFORM, VelocityAnimator;
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
+  
 
   function dispatch(element, name) {
     var evt = DOM.createCustomEvent(animationEvent[name], { bubbles: true, cancelable: true, detail: element });
@@ -44,7 +42,7 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
     execute: function () {
       _export('VelocityAnimator', VelocityAnimator = function () {
         function VelocityAnimator(container) {
-          _classCallCheck(this, VelocityAnimator);
+          
 
           this.options = {
             duration: 400,
@@ -202,6 +200,8 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
           for (var i = 0; i < element.length; i++) {
             this._runElementAnimation(element[i], name, options);
           }
+
+          return Promise.resolve(element);
         };
 
         VelocityAnimator.prototype._runElementAnimation = function _runElementAnimation(element, name) {
