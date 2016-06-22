@@ -137,52 +137,6 @@ export declare class VelocityAnimator {
      * @returns Resolved when the animation is done
      */
   addClass(element: HTMLElement, className: string): Promise<boolean>;
-  
-  /**
-     * Run an animation on several elements
-     * @param element Element to animate
-     * @return when animation is complete
-     */
-  _runElements(element: any, name: any, options?: any): Promise<VelocityAnimator>;
-  
-  //--------------------------------- Private methods
-  /**
-     * execute an animation that is coupled to an HTMLElement
-     *
-     * The html element can optionally override the animation options through it's attributes
-     *
-     * @param element {HTMLElement}   Element to animate
-     * @param name {String}           Name of the effect to execute
-     * @param options                 animation options
-     * @param eventName               name of the event to dispatch
-     *
-     * @returns {Promise} resolved when animation is complete
-     */
-  _runElementAnimation(element: HTMLElement, name: string, options?: any, eventName?: string): Promise<any>;
-  
-  /**
-     * Parse animations specified in the elements attributes.
-     * The parsed attributes will be stored in the animations property for the element.
-     *
-     * @param element {HTMLElement|Array<HTMLElement>}   Element(s) to parse
-     */
-  _parseAttributes(element: any): void;
-  
-  /**
-     * Parse an attribute value as an animation definition
-     *
-     * syntax with effectname:     effectName;{prop1:value, prop2:value}
-     * syntax with properties:     {prop1:value, prop2:value};{prop1:value, prop2:value}
-     *
-     * @param value           Attribute value
-     * @returns {Object}      Object with the effectName/properties and options that have been extracted
-     */
-  _parseAttributeValue(value: any): any;
-  
-  /**
-     * Turn an element into an array of elements if it's not an array yet or a Nodelist
-     */
-  _ensureList(element: any): any;
 }
 
 /**
