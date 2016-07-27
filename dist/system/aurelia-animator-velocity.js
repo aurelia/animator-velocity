@@ -29,6 +29,16 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
     return obj;
   }
 
+  function configure(config, callback) {
+    var animator = config.container.get(VelocityAnimator);
+    config.container.get(TemplatingEngine).configureAnimator(animator);
+    if (typeof callback === 'function') {
+      callback(animator);
+    }
+  }
+
+  _export('configure', configure);
+
   return {
     setters: [function (_velocityAnimate) {
       velocity = _velocityAnimate.default;
@@ -275,16 +285,6 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
       }());
 
       _export('VelocityAnimator', VelocityAnimator);
-
-      function configure(config, callback) {
-        var animator = config.container.get(VelocityAnimator);
-        config.container.get(TemplatingEngine).configureAnimator(animator);
-        if (typeof callback === 'function') {
-          callback(animator);
-        }
-      }
-
-      _export('configure', configure);
     }
   };
 });

@@ -5,7 +5,7 @@ define(['exports', './aurelia-animator-velocity'], function (exports, _aureliaAn
     value: true
   });
   Object.keys(_aureliaAnimatorVelocity).forEach(function (key) {
-    if (key === "default") return;
+    if (key === "default" || key === "__esModule") return;
     Object.defineProperty(exports, key, {
       enumerable: true,
       get: function () {
