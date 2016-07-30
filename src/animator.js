@@ -213,7 +213,7 @@ export class VelocityAnimator {
    * @param element Element to stop animating
    * @return resolved when animation is complete
    */
-  enter(element:any, effectName:any, options:any): Promise<VelocityAnimator> {
+  enter(element: any, effectName?: any, options?: any): Promise<VelocityAnimator> {
     return this.stop(element, true)._runElementAnimation(element, effectName || ':enter', options, 'enter');
   }
 
@@ -222,7 +222,7 @@ export class VelocityAnimator {
    * @param element Element to animate
    * @returns resolved when animation is complete
    */
-  leave(element: any, effectName: any, options: any): Promise<VelocityAnimator> {
+  leave(element: any, effectName?: any, options?: any): Promise<VelocityAnimator> {
     return this.stop(element, true)._runElementAnimation(element, effectName || ':leave', options, 'leave');
   }
 
