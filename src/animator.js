@@ -306,8 +306,23 @@ export class VelocityAnimator {
         if (options && options.complete) options.complete.apply(this, arguments);
       }
     };
+    
+    var attrOpts = {};
+    switch (name) {
+      case ':enter':
+        var enter = element.animations.enter;
+        name = enter.properties;
+        attrOpts = enter.options;
+        break;
 
-    let opts = Object.assign({}, this.options, options, overrides);
+      case ':leave':
+        var leave = element.animations.leave;
+        name = leave.properties;
+        attrOpts = leave.options;
+        break;
+    }
+
+    let opts = Object.assign({}, this.options, attrOpts, options, overrides);
     return this.animate(element, name, opts, true);
   }
 
