@@ -179,7 +179,25 @@ export let VelocityAnimator = class VelocityAnimator {
       }
     };
 
-    let opts = Object.assign({}, this.options, options, overrides);
+    let attrOpts = {};
+    switch (name) {
+      case ':enter':
+        let enter = element.animations.enter;
+        name = enter.properties;
+        attrOpts = enter.options;
+        break;
+
+      case ':leave':
+        let leave = element.animations.leave;
+        name = leave.properties;
+        attrOpts = leave.options;
+        break;
+
+      default:
+        throw new Error(`${ name } animation is not supported.`);
+    }
+
+    let opts = Object.assign({}, this.options, attrOpts, options, overrides);
     return this.animate(element, name, opts, true);
   }
 

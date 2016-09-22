@@ -213,7 +213,7 @@ export class VelocityAnimator {
    * @param element Element to stop animating
    * @return resolved when animation is complete
    */
-  enter(element:any, effectName:any, options:any): Promise<VelocityAnimator> {
+  enter(element: any, effectName?: any, options?: any): Promise<VelocityAnimator> {
     return this.stop(element, true)._runElementAnimation(element, effectName || ':enter', options, 'enter');
   }
 
@@ -222,7 +222,7 @@ export class VelocityAnimator {
    * @param element Element to animate
    * @returns resolved when animation is complete
    */
-  leave(element: any, effectName: any, options: any): Promise<VelocityAnimator> {
+  leave(element: any, effectName?: any, options?: any): Promise<VelocityAnimator> {
     return this.stop(element, true)._runElementAnimation(element, effectName || ':leave', options, 'leave');
   }
 
@@ -307,7 +307,25 @@ export class VelocityAnimator {
       }
     };
 
-    let opts = Object.assign({}, this.options, options, overrides);
+    let attrOpts = {};
+    switch (name) {
+    case ':enter':
+      let enter = element.animations.enter;
+      name = enter.properties;
+      attrOpts = enter.options;
+      break;
+
+    case ':leave':
+      let leave = element.animations.leave;
+      name = leave.properties;
+      attrOpts = leave.options;
+      break;
+
+    default:
+      throw new Error(`${name} animation is not supported.`);
+    }
+
+    let opts = Object.assign({}, this.options, attrOpts, options, overrides);
     return this.animate(element, name, opts, true);
   }
 

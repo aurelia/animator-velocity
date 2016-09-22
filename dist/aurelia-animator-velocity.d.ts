@@ -113,14 +113,14 @@ export declare class VelocityAnimator {
      * @param element Element to stop animating
      * @return resolved when animation is complete
      */
-  enter(element: any, effectName: any, options: any): Promise<VelocityAnimator>;
+  enter(element: any, effectName?: any, options?: any): Promise<VelocityAnimator>;
   
   /**
      * Run the leave animation on an element
      * @param element Element to animate
      * @returns resolved when animation is complete
      */
-  leave(element: any, effectName: any, options: any): Promise<VelocityAnimator>;
+  leave(element: any, effectName?: any, options?: any): Promise<VelocityAnimator>;
   
   /**
      * Add a class to an element to trigger an animation.
