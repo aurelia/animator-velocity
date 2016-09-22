@@ -306,20 +306,23 @@ export class VelocityAnimator {
         if (options && options.complete) options.complete.apply(this, arguments);
       }
     };
-    
-    var attrOpts = {};
-    switch (name) {
-      case ':enter':
-        var enter = element.animations.enter;
-        name = enter.properties;
-        attrOpts = enter.options;
-        break;
 
-      case ':leave':
-        var leave = element.animations.leave;
-        name = leave.properties;
-        attrOpts = leave.options;
-        break;
+    let attrOpts = {};
+    switch (name) {
+    case ':enter':
+      let enter = element.animations.enter;
+      name = enter.properties;
+      attrOpts = enter.options;
+      break;
+
+    case ':leave':
+      let leave = element.animations.leave;
+      name = leave.properties;
+      attrOpts = leave.options;
+      break;
+
+    default:
+      throw new Error(`${name} animation is not supported.`);
     }
 
     let opts = Object.assign({}, this.options, attrOpts, options, overrides);
