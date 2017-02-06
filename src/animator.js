@@ -322,7 +322,7 @@ export class VelocityAnimator {
       break;
 
     default:
-      if (!this.effects[name]) throw new Error(`${name} animation is not supported.`);
+      if (!this.effects[this.resolveEffectAlias(name)]) throw new Error(`${name} animation is not supported.`);
     }
 
     let opts = Object.assign({}, this.options, attrOpts, options, overrides);

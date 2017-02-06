@@ -42,7 +42,21 @@ describe('animator-velocity', () => {
     });
 
     it('can use aliases', (done) => {
-      animator.enter(elem).then(()=> {
+      animator.registerEffect(':fadeInAlias', 'fadeIn');
+      animator.enter(elem, ':fadeInAlias').then(() => {
+        expect(elem.style.opacity).toBe('1');
+        done();
+      });
+    });
+
+    it('can use custom effects', (done) => {
+      const customEffect = {
+        defaultDuration: 50,
+        calls: [ [{ opacity: [1, 0] }, 1] ]
+      };
+
+      animator.registerEffect('customFadeIn', customEffect);
+      animator.enter(elem, 'customFadeIn').then(() => {
         expect(elem.style.opacity).toBe('1');
         done();
       });
@@ -64,19 +78,20 @@ describe('animator-velocity', () => {
       document.removeEventListener(animationEvent.enterBegin, l1, false);
     });
 
-    /*it('publishes an enterBegin and enterDone event when using custom effects', (done) => {
-     let enterBeginCalled = false, enterDoneCalled = false;
-     let l1 = document.addEventListener(animationEvent.enterBegin, (payload) => enterBeginCalled = true),
-     l2 = document.addEventListener(animationEvent.enterDone, () => enterDoneCalled = true);
+    it('publishes an enterBegin and enterDone event when using custom effects', (done) => {
+      let enterBeginCalled = false;
+      let enterDoneCalled = false;
+      let l1 = document.addEventListener(animationEvent.enterBegin, (payload) => enterBeginCalled = true);
+      let l2 = document.addEventListener(animationEvent.enterDone, () => enterDoneCalled = true);
 
-     animator.enter(elem,'fadeIn').then( () => {
-     expect(enterDoneCalled).toBe(true);
-     document.removeEventListener(animationEvent.enterDone, l2, false);
-     done();
-     });
+      animator.enter(elem, 'fadeIn').then(() => {
+        expect(enterDoneCalled).toBe(true);
+        document.removeEventListener(animationEvent.enterDone, l2, false);
+        done();
+      });
 
-     expect(enterBeginCalled).toBe(true);
-     document.removeEventListener(animationEvent.enterBegin, l1, false);
-     });*/
+      expect(enterBeginCalled).toBe(true);
+      document.removeEventListener(animationEvent.enterBegin, l1, false);
+    });
   });
 });
