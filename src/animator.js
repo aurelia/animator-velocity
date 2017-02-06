@@ -397,12 +397,17 @@ function parseJSObject(text) {
   }
 
   text = text.replace('{', '').replace('}', '');
-  let pairs = text.split(',');
+  let pairs = text.split(/[,]+(?![^\[]+\])/);
   let obj = {};
 
   for (let i = 0; i < pairs.length; ++i) {
     let keyAndValue = pairs[i].split(':');
-    obj[keyAndValue[0].trim()] = keyAndValue[1].trim();
+    let value = keyAndValue[1].trim();
+    
+    // if value is an array, then convert it into an array object from string
+    if (value[0] === '[' && value[value.length-1] === ']' && value.indexOf(',') > -1) value = value.replace('[', '').replace(']', '').split(',');
+    
+    obj[keyAndValue[0].trim()] = value;
   }
 
   return obj;
