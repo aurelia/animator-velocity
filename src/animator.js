@@ -11,15 +11,15 @@ export class VelocityAnimator {
   /**
    * Default options for velocity
    */
-  options:any = {
+  options: any = {
     duration: 400,
     easing: 'linear'
   };
 
-  isAnimating:boolean = false;
+  isAnimating: boolean = false;
 
-  enterAnimation:any = {properties: ':enter', options: {easing: 'ease-in', duration: 200}};
-  leaveAnimation:any = {properties: ':leave', options: {easing: 'ease-in', duration: 200}};
+  enterAnimation: any = { properties: ':enter', options: { easing: 'ease-in', duration: 200 }};
+  leaveAnimation: any = { properties: ':leave', options: { easing: 'ease-in', duration: 200 }};
 
   /**
    * Array of easing names that can be used with this animator
@@ -29,7 +29,7 @@ export class VelocityAnimator {
   /**
    * Effects mapped by name
    */
-  effects:any = {
+  effects: any = {
     ':enter': 'fadeIn',
     ':leave': 'fadeOut'
   };
@@ -37,7 +37,7 @@ export class VelocityAnimator {
   /**
    * Creates an instance of VelocityAnimator.
    */
-  constructor(container:any) {
+  constructor(container: any) {
     this.container = container || DOM;
     this.easings = Object.assign(velocity.Easings, this.easings);
     this.effects = Object.assign(velocity.Redirects, this.effects);
@@ -51,40 +51,46 @@ export class VelocityAnimator {
    * @param element Element or array of elements to animate
    * @param nameOrProps Element properties to animate
    * @param options Animation options
-   * @return resolved when animation is complete
+   * @param silent Disable animation events
+   * @return resolves to Array (element was an HTMLElement) or NodeList (element was a string or NodeList) when complete
    */
-  animate(element:any, nameOrProps:any, options?:any, silent?:boolean): Promise<VelocityAnimator> {
+  animate(element: any, nameOrProps: any, options?: Object, silent?: boolean): Promise<any> {
+    // validate input
+    if (!element) return Promise.reject(new Error('first argument (element) must be defined'));
+    if (!nameOrProps) return Promise.reject(new Error('second argument (animation name or properties) must be defined'));
+    if (options && (!(options instanceof Object) || Array.isArray(options))) return Promise.reject(new Error('third argument (options) must be an Object'));
+
+    // mark as animating
     this.isAnimating = true;
-    let _this = this;
-    let overrides = {
+
+    // default values
+    const _this = this;
+    const optionOverrides = {
       complete: function(el) {
         _this.isAnimating = false;
         if (!silent) dispatch(el, 'animateDone');
         if (options && options.complete) options.complete.apply(this, arguments);
       }
     };
-    if (!element) return Promise.reject(new Error('invalid first argument'));
 
-    //resolve selectors
+    // if element was a string, search for the elements in the container
     if (typeof element === 'string') element = this.container.querySelectorAll(element);
 
-    //if nothing was found or no element was passed resolve the promise immediatly
+    // if there are no elements to animate, resolve immediately
     if (!element || element.length === 0) return Promise.resolve(element);
 
     if (!silent) dispatch(element, 'animateBegin');
 
+    // if nameOrProps was a string, then find the effect with that name
     if (typeof nameOrProps === 'string') {
       nameOrProps = this.resolveEffectAlias(nameOrProps);
-      //if(!nameOrProps) Promise.reject(new Error(`effect alias ${nameOrProps} not found`));
+      if (!this.effects[nameOrProps]) return Promise.reject(new Error(`effect with name \`${nameOrProps}\` was not found`));
     }
 
-    //try to run the animation
-    let opts = Object.assign({}, this.options, options, overrides);
-    let p = velocity(element, nameOrProps, opts);
-
-    //reject the promise if Velocity didn't return a Promise due to invalid arguments
-    if (!p) return Promise.reject(new Error('invalid element used for animator.animate'));
-    return p;
+    // try to run the animation
+    const velocityOptions = Object.assign({}, this.options, options, optionOverrides);
+    const velocityPromise = velocity(element, nameOrProps, velocityOptions);
+    return (velocityPromise) ? velocityPromise : Promise.reject(new Error('velocity animation failed due to invalid arguments'));
   }
 
   /**
