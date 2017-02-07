@@ -42,7 +42,21 @@ describe('animator-velocity', () => {
     });
 
     it('can use aliases', (done) => {
-      animator.leave(elem).then(()=> {
+      animator.registerEffect(':fadeOutAlias', 'fadeOut');
+      animator.leave(elem, ':fadeOutAlias').then(()=> {
+        expect(elem.style.opacity).toBe('0');
+        done();
+      });
+    });
+
+    it('can use custom effects', (done) => {
+      const customEffect = {
+        defaultDuration: 50,
+        calls: [ [{ opacity: [0, 1] }, 1] ]
+      };
+
+      animator.registerEffect('customFadeOut', customEffect);
+      animator.leave(elem, 'customFadeOut').then(()=> {
         expect(elem.style.opacity).toBe('0');
         done();
       });
@@ -64,19 +78,20 @@ describe('animator-velocity', () => {
       document.removeEventListener(animationEvent.leaveBegin, l1, false);
     });
 
-    /*it('publishes an leaveBegin and leaveDone event when using custom effects', (done) => {
-     let leaveBeginCalled = false, leaveDoneCalled = false;
-     let l1 = document.addEventListener(animationEvent.leaveBegin, (payload) => leaveBeginCalled = true),
-     l2 = document.addEventListener(animationEvent.leaveDone, () => leaveDoneCalled = true);
+    it('publishes an leaveBegin and leaveDone event when using custom effects', (done) => {
+      let leaveBeginCalled = false;
+      let leaveDoneCalled = false;
+      let l1 = document.addEventListener(animationEvent.leaveBegin, (payload) => leaveBeginCalled = true);
+      let l2 = document.addEventListener(animationEvent.leaveDone, () => leaveDoneCalled = true);
 
-     animator.leave(elem,'fadeOut').then( () => {
-     expect(leaveDoneCalled).toBe(true);
-     document.removeEventListener(animationEvent.leaveDone, l2, false);
-     done();
-     });
+      animator.leave(elem, 'fadeIn').then(() => {
+        expect(leaveDoneCalled).toBe(true);
+        document.removeEventListener(animationEvent.leaveDone, l2, false);
+        done();
+      });
 
-     expect(leaveBeginCalled).toBe(true);
-     document.removeEventListener(animationEvent.leaveBegin, l1, false);
-     });*/
+      expect(leaveBeginCalled).toBe(true);
+      document.removeEventListener(animationEvent.leaveBegin, l1, false);
+    });
   });
 });
