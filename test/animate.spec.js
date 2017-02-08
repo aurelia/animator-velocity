@@ -26,7 +26,10 @@ describe('`animate` function', () => {
 
     // clear all styles
     elem.removeAttribute('style');
-    for (const el of Array.from(elemGroup)) el.removeAttribute('style');
+
+    for (const el of Array.from(elemGroup)) {
+      el.removeAttribute('style');
+    }
   });
 
   // -------- TESTS: Main
