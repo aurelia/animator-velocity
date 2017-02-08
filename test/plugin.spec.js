@@ -30,7 +30,7 @@ describe('animator-velocity-plugin', () => {
 
         },
         get: (type) => {
-          if(type === VelocityAnimator) {
+          if (type === VelocityAnimator) {
             return new VelocityAnimator();
           }
 
