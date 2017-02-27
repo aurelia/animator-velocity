@@ -25,16 +25,20 @@ export let VelocityAnimator = class VelocityAnimator {
   }
 
   animate(element, nameOrProps, options, silent) {
+    if (!element) return Promise.reject(new Error('first argument (element) must be defined'));
+    if (!nameOrProps) return Promise.reject(new Error('second argument (animation name or properties) must be defined'));
+    if (options && (!(options instanceof Object) || Array.isArray(options))) return Promise.reject(new Error('third argument (options) must be an Object'));
+
     this.isAnimating = true;
-    let _this = this;
-    let overrides = {
+
+    const _this = this;
+    const optionOverrides = {
       complete: function (el) {
         _this.isAnimating = false;
         if (!silent) dispatch(el, 'animateDone');
         if (options && options.complete) options.complete.apply(this, arguments);
       }
     };
-    if (!element) return Promise.reject(new Error('invalid first argument'));
 
     if (typeof element === 'string') element = this.container.querySelectorAll(element);
 
@@ -44,13 +48,12 @@ export let VelocityAnimator = class VelocityAnimator {
 
     if (typeof nameOrProps === 'string') {
       nameOrProps = this.resolveEffectAlias(nameOrProps);
+      if (!this.effects[nameOrProps]) return Promise.reject(new Error(`effect with name \`${ nameOrProps }\` was not found`));
     }
 
-    let opts = Object.assign({}, this.options, options, overrides);
-    let p = velocity(element, nameOrProps, opts);
-
-    if (!p) return Promise.reject(new Error('invalid element used for animator.animate'));
-    return p;
+    const velocityOptions = Object.assign({}, this.options, options, optionOverrides);
+    const velocityPromise = velocity(element, nameOrProps, velocityOptions);
+    return velocityPromise ? velocityPromise : Promise.reject(new Error('velocity animation failed due to invalid arguments'));
   }
 
   stop(element, clearQueue) {
@@ -194,7 +197,7 @@ export let VelocityAnimator = class VelocityAnimator {
         break;
 
       default:
-        throw new Error(`${ name } animation is not supported.`);
+        if (!this.effects[this.resolveEffectAlias(name)]) throw new Error(`${ name } animation is not supported.`);
     }
 
     let opts = Object.assign({}, this.options, attrOpts, options, overrides);
@@ -251,12 +254,16 @@ function parseJSObject(text) {
   }
 
   text = text.replace('{', '').replace('}', '');
-  let pairs = text.split(',');
+  let pairs = text.split(/[,]+(?![^\[]+\])/);
   let obj = {};
 
   for (let i = 0; i < pairs.length; ++i) {
     let keyAndValue = pairs[i].split(':');
-    obj[keyAndValue[0].trim()] = keyAndValue[1].trim();
+    let value = keyAndValue[1].trim();
+
+    if (value[0] === '[' && value[value.length - 1] === ']' && value.indexOf(',') > -1) value = value.replace('[', '').replace(']', '').split(',');
+
+    obj[keyAndValue[0].trim()] = value;
   }
 
   return obj;

@@ -18,12 +18,16 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
     }
 
     text = text.replace('{', '').replace('}', '');
-    var pairs = text.split(',');
+    var pairs = text.split(/[,]+(?![^\[]+\])/);
     var obj = {};
 
     for (var i = 0; i < pairs.length; ++i) {
       var keyAndValue = pairs[i].split(':');
-      obj[keyAndValue[0].trim()] = keyAndValue[1].trim();
+      var value = keyAndValue[1].trim();
+
+      if (value[0] === '[' && value[value.length - 1] === ']' && value.indexOf(',') > -1) value = value.replace('[', '').replace(']', '').split(',');
+
+      obj[keyAndValue[0].trim()] = value;
     }
 
     return obj;
@@ -73,16 +77,20 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
         }
 
         VelocityAnimator.prototype.animate = function animate(element, nameOrProps, options, silent) {
+          if (!element) return Promise.reject(new Error('first argument (element) must be defined'));
+          if (!nameOrProps) return Promise.reject(new Error('second argument (animation name or properties) must be defined'));
+          if (options && (!(options instanceof Object) || Array.isArray(options))) return Promise.reject(new Error('third argument (options) must be an Object'));
+
           this.isAnimating = true;
+
           var _this = this;
-          var overrides = {
+          var optionOverrides = {
             complete: function complete(el) {
               _this.isAnimating = false;
               if (!silent) dispatch(el, 'animateDone');
               if (options && options.complete) options.complete.apply(this, arguments);
             }
           };
-          if (!element) return Promise.reject(new Error('invalid first argument'));
 
           if (typeof element === 'string') element = this.container.querySelectorAll(element);
 
@@ -92,13 +100,12 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
 
           if (typeof nameOrProps === 'string') {
             nameOrProps = this.resolveEffectAlias(nameOrProps);
+            if (!this.effects[nameOrProps]) return Promise.reject(new Error('effect with name `' + nameOrProps + '` was not found'));
           }
 
-          var opts = Object.assign({}, this.options, options, overrides);
-          var p = velocity(element, nameOrProps, opts);
-
-          if (!p) return Promise.reject(new Error('invalid element used for animator.animate'));
-          return p;
+          var velocityOptions = Object.assign({}, this.options, options, optionOverrides);
+          var velocityPromise = velocity(element, nameOrProps, velocityOptions);
+          return velocityPromise ? velocityPromise : Promise.reject(new Error('velocity animation failed due to invalid arguments'));
         };
 
         VelocityAnimator.prototype.stop = function stop(element, clearQueue) {
@@ -254,7 +261,7 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
               break;
 
             default:
-              throw new Error(name + ' animation is not supported.');
+              if (!this.effects[this.resolveEffectAlias(name)]) throw new Error(name + ' animation is not supported.');
           }
 
           var opts = Object.assign({}, this.options, attrOpts, options, overrides);

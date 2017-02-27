@@ -44,9 +44,10 @@ export declare class VelocityAnimator {
      * @param element Element or array of elements to animate
      * @param nameOrProps Element properties to animate
      * @param options Animation options
-     * @return resolved when animation is complete
+     * @param silent Disable animation events
+     * @return resolves to Array (element was an HTMLElement) or NodeList (element was a string or NodeList) when complete
      */
-  animate(element: any, nameOrProps: any, options?: any, silent?: boolean): Promise<VelocityAnimator>;
+  animate(element: any, nameOrProps: any, options?: Object, silent?: boolean): Promise<any>;
   
   /**
      * Stop an animation

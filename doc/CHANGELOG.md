@@ -1,3 +1,14 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/aurelia/animator-velocity/compare/1.0.1...v1.1.0) (2017-02-27)
+
+
+### Bug Fixes
+
+* **animator:** fix custom animation name handling in 'enter' and 'leave' functions ([12d820f](https://github.com/aurelia/animator-velocity/commit/12d820f))
+* **animator:** fix using aliases in 'enter' and 'leave', added tests ([1db99bc](https://github.com/aurelia/animator-velocity/commit/1db99bc))
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/aurelia/animator-velocity/compare/1.0.0...v1.0.1) (2016-09-22)
 
