@@ -151,8 +151,7 @@ export var VelocityAnimator = function () {
   };
 
   VelocityAnimator.prototype.removeClass = function removeClass(element, className) {
-    this._parseAttributes(element);
-    if (className === aureliaHideClassName && element.animations.show) {
+    if (className === aureliaHideClassName && element.getAttribute('anim-show')) {
       element.classList.remove(className);
       return this.stop(element, true)._runElementAnimation(element, ':show', undefined, 'show');
     } else {
@@ -162,8 +161,7 @@ export var VelocityAnimator = function () {
   };
 
   VelocityAnimator.prototype.addClass = function addClass(element, className) {
-    this._parseAttributes(element);
-    if (className === aureliaHideClassName && element.animations.hide) {
+    if (className === aureliaHideClassName && element.getAttribute('anim-hide')) {
       return this.stop(element, true)._runElementAnimation(element, ':hide', undefined, 'hide').then(function () {
         element.classList.add(className);
       });

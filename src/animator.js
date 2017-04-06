@@ -242,8 +242,7 @@ export class VelocityAnimator {
    * @returns Resolved when the animation is done
    */
   removeClass(element: HTMLElement, className: string): Promise<boolean> {
-    this._parseAttributes(element);
-    if (className === aureliaHideClassName && element.animations.show) {
+    if (className === aureliaHideClassName && element.getAttribute('anim-show')) {
       element.classList.remove(className);
       return this.stop(element, true)._runElementAnimation(element, ':show', undefined, 'show');
     } else {
@@ -259,8 +258,7 @@ export class VelocityAnimator {
    * @returns Resolved when the animation is done
    */
   addClass(element: HTMLElement, className: string): Promise<boolean> {
-    this._parseAttributes(element);
-    if (className === aureliaHideClassName && element.animations.hide) {
+    if (className === aureliaHideClassName && element.getAttribute('anim-hide')) {
       return this.stop(element, true)._runElementAnimation(element, ':hide', undefined, 'hide').then(() => {
         element.classList.add(className);
       });

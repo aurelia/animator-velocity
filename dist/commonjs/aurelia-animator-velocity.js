@@ -166,8 +166,7 @@ var VelocityAnimator = exports.VelocityAnimator = function () {
   };
 
   VelocityAnimator.prototype.removeClass = function removeClass(element, className) {
-    this._parseAttributes(element);
-    if (className === _aureliaHideStyle.aureliaHideClassName && element.animations.show) {
+    if (className === _aureliaHideStyle.aureliaHideClassName && element.getAttribute('anim-show')) {
       element.classList.remove(className);
       return this.stop(element, true)._runElementAnimation(element, ':show', undefined, 'show');
     } else {
@@ -177,8 +176,7 @@ var VelocityAnimator = exports.VelocityAnimator = function () {
   };
 
   VelocityAnimator.prototype.addClass = function addClass(element, className) {
-    this._parseAttributes(element);
-    if (className === _aureliaHideStyle.aureliaHideClassName && element.animations.hide) {
+    if (className === _aureliaHideStyle.aureliaHideClassName && element.getAttribute('anim-hide')) {
       return this.stop(element, true)._runElementAnimation(element, ':hide', undefined, 'hide').then(function () {
         element.classList.add(className);
       });
