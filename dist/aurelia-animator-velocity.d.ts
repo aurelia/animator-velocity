@@ -4,9 +4,6 @@ import {
   TemplatingEngine
 } from 'aurelia-templating';
 import {
-  aureliaHideClassName
-} from 'aurelia-templating-resources/aurelia-hide-style';
-import {
   DOM,
   PLATFORM
 } from 'aurelia-pal';
