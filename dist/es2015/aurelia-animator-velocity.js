@@ -14,8 +14,6 @@ export let VelocityAnimator = class VelocityAnimator {
     this.isAnimating = false;
     this.enterAnimation = { properties: ':enter', options: { easing: 'ease-in', duration: 200 } };
     this.leaveAnimation = { properties: ':leave', options: { easing: 'ease-in', duration: 200 } };
-    this.showAnimation = { properties: ':show', options: { easing: 'ease-in', duration: 200 } };
-    this.hideAnimation = { properties: ':hide', options: { easing: 'ease-in', duration: 200 } };
     this.easings = [];
     this.effects = {
       ':enter': 'fadeIn',
@@ -145,7 +143,8 @@ export let VelocityAnimator = class VelocityAnimator {
   }
 
   removeClass(element, className) {
-    if (className === aureliaHideClassName) {
+    this._parseAttributes(element);
+    if (className === aureliaHideClassName && element.animations.show) {
       element.classList.remove(className);
       return this.stop(element, true)._runElementAnimation(element, ':show', undefined, 'show');
     } else {
@@ -155,7 +154,8 @@ export let VelocityAnimator = class VelocityAnimator {
   }
 
   addClass(element, className) {
-    if (className === aureliaHideClassName) {
+    this._parseAttributes(element);
+    if (className === aureliaHideClassName && element.animations.hide) {
       return this.stop(element, true)._runElementAnimation(element, ':hide', undefined, 'hide').then(() => {
         element.classList.add(className);
       });
@@ -242,8 +242,8 @@ export let VelocityAnimator = class VelocityAnimator {
       el.animations = {};
       el.animations.enter = this._parseAttributeValue(el.getAttribute('anim-enter')) || this.enterAnimation;
       el.animations.leave = this._parseAttributeValue(el.getAttribute('anim-leave')) || this.leaveAnimation;
-      el.animations.show = this._parseAttributeValue(el.getAttribute('anim-show')) || this.showAnimation;
-      el.animations.hide = this._parseAttributeValue(el.getAttribute('anim-hide')) || this.hideAnimation;
+      el.animations.show = this._parseAttributeValue(el.getAttribute('anim-show')) || undefined;
+      el.animations.hide = this._parseAttributeValue(el.getAttribute('anim-hide')) || undefined;
     }
   }
 

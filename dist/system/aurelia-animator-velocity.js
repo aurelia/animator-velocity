@@ -67,8 +67,6 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-templating-r
           this.isAnimating = false;
           this.enterAnimation = { properties: ':enter', options: { easing: 'ease-in', duration: 200 } };
           this.leaveAnimation = { properties: ':leave', options: { easing: 'ease-in', duration: 200 } };
-          this.showAnimation = { properties: ':show', options: { easing: 'ease-in', duration: 200 } };
-          this.hideAnimation = { properties: ':hide', options: { easing: 'ease-in', duration: 200 } };
           this.easings = [];
           this.effects = {
             ':enter': 'fadeIn',
@@ -202,7 +200,8 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-templating-r
         };
 
         VelocityAnimator.prototype.removeClass = function removeClass(element, className) {
-          if (className === aureliaHideClassName) {
+          this._parseAttributes(element);
+          if (className === aureliaHideClassName && element.animations.show) {
             element.classList.remove(className);
             return this.stop(element, true)._runElementAnimation(element, ':show', undefined, 'show');
           } else {
@@ -212,7 +211,8 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-templating-r
         };
 
         VelocityAnimator.prototype.addClass = function addClass(element, className) {
-          if (className === aureliaHideClassName) {
+          this._parseAttributes(element);
+          if (className === aureliaHideClassName && element.animations.hide) {
             return this.stop(element, true)._runElementAnimation(element, ':hide', undefined, 'hide').then(function () {
               element.classList.add(className);
             });
@@ -307,8 +307,8 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-templating-r
             el.animations = {};
             el.animations.enter = this._parseAttributeValue(el.getAttribute('anim-enter')) || this.enterAnimation;
             el.animations.leave = this._parseAttributeValue(el.getAttribute('anim-leave')) || this.leaveAnimation;
-            el.animations.show = this._parseAttributeValue(el.getAttribute('anim-show')) || this.showAnimation;
-            el.animations.hide = this._parseAttributeValue(el.getAttribute('anim-hide')) || this.hideAnimation;
+            el.animations.show = this._parseAttributeValue(el.getAttribute('anim-show')) || undefined;
+            el.animations.hide = this._parseAttributeValue(el.getAttribute('anim-hide')) || undefined;
           }
         };
 

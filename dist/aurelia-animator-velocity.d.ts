@@ -24,8 +24,6 @@ export declare class VelocityAnimator {
   isAnimating: boolean;
   enterAnimation: any;
   leaveAnimation: any;
-  showAnimation: any;
-  hideAnimation: any;
   
   /**
      * Array of easing names that can be used with this animator
