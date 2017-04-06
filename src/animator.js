@@ -1,6 +1,7 @@
 import velocity from 'velocity-animate';
 import 'velocity-animate/velocity.ui';
 import { animationEvent } from 'aurelia-templating';
+import { aureliaHideClassName} from 'aurelia-templating-resources/aurelia-hide-style';
 import {DOM, PLATFORM} from 'aurelia-pal';
 
 /**
@@ -20,6 +21,8 @@ export class VelocityAnimator {
 
   enterAnimation: any = { properties: ':enter', options: { easing: 'ease-in', duration: 200 }};
   leaveAnimation: any = { properties: ':leave', options: { easing: 'ease-in', duration: 200 }};
+  showAnimation: any = { properties: ':show', options: { easing: 'ease-in', duration: 200 }};
+  hideAnimation: any = { properties: ':hide', options: { easing: 'ease-in', duration: 200 }};
 
   /**
    * Array of easing names that can be used with this animator
@@ -31,7 +34,9 @@ export class VelocityAnimator {
    */
   effects: any = {
     ':enter': 'fadeIn',
-    ':leave': 'fadeOut'
+    ':leave': 'fadeOut',
+    ':show': 'fadeIn',
+    ':hide': 'fadeOut'
   };
 
   /**
@@ -239,8 +244,13 @@ export class VelocityAnimator {
    * @returns Resolved when the animation is done
    */
   removeClass(element: HTMLElement, className: string): Promise<boolean> {
-    element.classList.remove(className);
-    return Promise.resolve(false);
+    if (className === aureliaHideClassName) {
+      element.classList.remove(className);
+      return this.stop(element, true)._runElementAnimation(element, ':show', undefined, 'show');
+    } else {
+      element.classList.remove(className);
+      return Promise.resolve(false);
+    }
   }
 
   /**
@@ -250,8 +260,14 @@ export class VelocityAnimator {
    * @returns Resolved when the animation is done
    */
   addClass(element: HTMLElement, className: string): Promise<boolean> {
-    element.classList.add(className);
-    return Promise.resolve(false);
+    if (className === aureliaHideClassName) {
+      return this.stop(element, true)._runElementAnimation(element, ':hide', undefined, 'hide').then(() => {
+        element.classList.add(className);
+      });
+    } else {
+      element.classList.add(className);
+      return Promise.resolve(false);
+    }
   }
 
   /**
@@ -327,6 +343,18 @@ export class VelocityAnimator {
       attrOpts = leave.options;
       break;
 
+    case ':show':
+      let show = element.animations.show;
+      name = show.properties;
+      attrOpts = show.options;
+      break;
+
+    case ':hide':
+      let hide = element.animations.hide;
+      name = hide.properties;
+      attrOpts = hide.options;
+      break;
+
     default:
       if (!this.effects[this.resolveEffectAlias(name)]) throw new Error(`${name} animation is not supported.`);
     }
@@ -351,6 +379,8 @@ export class VelocityAnimator {
       el.animations = {};
       el.animations.enter = this._parseAttributeValue(el.getAttribute('anim-enter')) || this.enterAnimation;
       el.animations.leave = this._parseAttributeValue(el.getAttribute('anim-leave')) || this.leaveAnimation;
+      el.animations.show = this._parseAttributeValue(el.getAttribute('anim-show')) || this.showAnimation;
+      el.animations.hide = this._parseAttributeValue(el.getAttribute('anim-hide')) || this.hideAnimation;
     }
   }
 

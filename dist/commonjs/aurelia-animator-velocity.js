@@ -12,6 +12,8 @@ var _velocityAnimate2 = _interopRequireDefault(_velocityAnimate);
 
 var _aureliaTemplating = require('aurelia-templating');
 
+var _aureliaHideStyle = require('aurelia-templating-resources/aurelia-hide-style');
+
 var _aureliaPal = require('aurelia-pal');
 
 require('velocity-animate/velocity.ui');
@@ -31,10 +33,14 @@ var VelocityAnimator = exports.VelocityAnimator = function () {
     this.isAnimating = false;
     this.enterAnimation = { properties: ':enter', options: { easing: 'ease-in', duration: 200 } };
     this.leaveAnimation = { properties: ':leave', options: { easing: 'ease-in', duration: 200 } };
+    this.showAnimation = { properties: ':show', options: { easing: 'ease-in', duration: 200 } };
+    this.hideAnimation = { properties: ':hide', options: { easing: 'ease-in', duration: 200 } };
     this.easings = [];
     this.effects = {
       ':enter': 'fadeIn',
-      ':leave': 'fadeOut'
+      ':leave': 'fadeOut',
+      ':show': 'fadeIn',
+      ':hide': 'fadeOut'
     };
 
     this.container = container || _aureliaPal.DOM;
@@ -162,17 +168,28 @@ var VelocityAnimator = exports.VelocityAnimator = function () {
   };
 
   VelocityAnimator.prototype.removeClass = function removeClass(element, className) {
-    element.classList.remove(className);
-    return Promise.resolve(false);
+    if (className === _aureliaHideStyle.aureliaHideClassName) {
+      element.classList.remove(className);
+      return this.stop(element, true)._runElementAnimation(element, ':show', undefined, 'show');
+    } else {
+      element.classList.remove(className);
+      return Promise.resolve(false);
+    }
   };
 
   VelocityAnimator.prototype.addClass = function addClass(element, className) {
-    element.classList.add(className);
-    return Promise.resolve(false);
+    if (className === _aureliaHideStyle.aureliaHideClassName) {
+      return this.stop(element, true)._runElementAnimation(element, ':hide', undefined, 'hide').then(function () {
+        element.classList.add(className);
+      });
+    } else {
+      element.classList.add(className);
+      return Promise.resolve(false);
+    }
   };
 
   VelocityAnimator.prototype._runElements = function _runElements(element, name) {
-    var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
     if (!element) return Promise.reject(new Error('invalid first argument'));
 
@@ -191,8 +208,8 @@ var VelocityAnimator = exports.VelocityAnimator = function () {
     var _this4 = this,
         _arguments = arguments;
 
-    var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
-    var eventName = arguments.length <= 3 || arguments[3] === undefined ? undefined : arguments[3];
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    var eventName = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
 
     if (!element) return Promise.reject(new Error('invalid first argument'));
 
@@ -226,6 +243,18 @@ var VelocityAnimator = exports.VelocityAnimator = function () {
         attrOpts = leave.options;
         break;
 
+      case ':show':
+        var show = element.animations.show;
+        name = show.properties;
+        attrOpts = show.options;
+        break;
+
+      case ':hide':
+        var hide = element.animations.hide;
+        name = hide.properties;
+        attrOpts = hide.options;
+        break;
+
       default:
         if (!this.effects[this.resolveEffectAlias(name)]) throw new Error(name + ' animation is not supported.');
     }
@@ -244,6 +273,8 @@ var VelocityAnimator = exports.VelocityAnimator = function () {
       el.animations = {};
       el.animations.enter = this._parseAttributeValue(el.getAttribute('anim-enter')) || this.enterAnimation;
       el.animations.leave = this._parseAttributeValue(el.getAttribute('anim-leave')) || this.leaveAnimation;
+      el.animations.show = this._parseAttributeValue(el.getAttribute('anim-show')) || this.showAnimation;
+      el.animations.hide = this._parseAttributeValue(el.getAttribute('anim-hide')) || this.hideAnimation;
     }
   };
 

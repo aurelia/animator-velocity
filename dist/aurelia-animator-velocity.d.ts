@@ -4,6 +4,9 @@ import {
   TemplatingEngine
 } from 'aurelia-templating';
 import {
+  aureliaHideClassName
+} from 'aurelia-templating-resources/aurelia-hide-style';
+import {
   DOM,
   PLATFORM
 } from 'aurelia-pal';
@@ -21,6 +24,8 @@ export declare class VelocityAnimator {
   isAnimating: boolean;
   enterAnimation: any;
   leaveAnimation: any;
+  showAnimation: any;
+  hideAnimation: any;
   
   /**
      * Array of easing names that can be used with this animator

@@ -1,5 +1,12 @@
 System.config({
   defaultJSExtensions: true,
+  transpiler: "babel",
+  babelOptions: {
+    "optional": [
+      "runtime",
+      "optimisation.modules.system"
+    ]
+  },
   paths: {
     "aurelia-animator-velocity/*": "dist\\system/*.js",
     "github:*": "jspm_packages/github/*",

@@ -22,17 +22,10 @@
   },
   "jspm": {
     "registry": "npm",
-    "jspmPackage": true,
     "main": "aurelia-animator-velocity",
     "format": "amd",
     "directories": {
       "dist": "dist/amd"
-    },
-    "peerDependencies": {
-      "aurelia-metadata": "^1.0.0",
-      "aurelia-pal": "^1.0.0",
-      "aurelia-templating": "^1.0.0",
-      "velocity-animate": "^1.2.3"
     },
     "dependencies": {
       "aurelia-metadata": "^1.0.0",
@@ -51,6 +44,7 @@
     "aurelia-metadata": "^1.0.0",
     "aurelia-pal": "^1.0.0",
     "aurelia-templating": "^1.0.0",
+    "aurelia-templating-resources": "^1.0.0",
     "velocity-animate": "^1.2.3"
   },
   "devDependencies": {
