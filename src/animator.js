@@ -1,8 +1,9 @@
 import velocity from 'velocity-animate';
 import 'velocity-animate/velocity.ui';
 import { animationEvent } from 'aurelia-templating';
-import { aureliaHideClassName} from 'aurelia-templating-resources/aurelia-hide-style';
 import {DOM, PLATFORM} from 'aurelia-pal';
+
+const aureliaHideClassName = 'aurelia-hide';
 
 /**
  * An implementation of the Animator using Velocity.
@@ -420,7 +421,7 @@ export class VelocityAnimator {
   }
 }
 
-function dispatch(element, name):boid {
+function dispatch(element, name):void {
   let evt = DOM.createCustomEvent(animationEvent[name], {bubbles: true, cancelable: true, detail: element});
   DOM.dispatchEvent(evt);
 }
