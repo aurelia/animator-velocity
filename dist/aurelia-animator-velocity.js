@@ -3,6 +3,8 @@ import {animationEvent,TemplatingEngine} from 'aurelia-templating';
 import {DOM,PLATFORM} from 'aurelia-pal';
 
 import 'velocity-animate/velocity.ui';
+const aureliaHideClassName = 'aurelia-hide';
+
 /**
  * An implementation of the Animator using Velocity.
  */
@@ -31,7 +33,9 @@ export class VelocityAnimator {
    */
   effects: any = {
     ':enter': 'fadeIn',
-    ':leave': 'fadeOut'
+    ':leave': 'fadeOut',
+    ':show': 'fadeIn',
+    ':hide': 'fadeOut'
   };
 
   /**
@@ -239,6 +243,11 @@ export class VelocityAnimator {
    * @returns Resolved when the animation is done
    */
   removeClass(element: HTMLElement, className: string): Promise<boolean> {
+    if (className === aureliaHideClassName && element.getAttribute('anim-show')) {
+      element.classList.remove(className);
+      return this.stop(element, true)._runElementAnimation(element, ':show', undefined, 'show');
+    }
+
     element.classList.remove(className);
     return Promise.resolve(false);
   }
@@ -250,6 +259,12 @@ export class VelocityAnimator {
    * @returns Resolved when the animation is done
    */
   addClass(element: HTMLElement, className: string): Promise<boolean> {
+    if (className === aureliaHideClassName && element.getAttribute('anim-hide')) {
+      return this.stop(element, true)._runElementAnimation(element, ':hide', undefined, 'hide').then(() => {
+        element.classList.add(className);
+      });
+    }
+
     element.classList.add(className);
     return Promise.resolve(false);
   }
@@ -327,6 +342,18 @@ export class VelocityAnimator {
       attrOpts = leave.options;
       break;
 
+    case ':show':
+      let show = element.animations.show;
+      name = show.properties;
+      attrOpts = show.options;
+      break;
+
+    case ':hide':
+      let hide = element.animations.hide;
+      name = hide.properties;
+      attrOpts = hide.options;
+      break;
+
     default:
       if (!this.effects[this.resolveEffectAlias(name)]) throw new Error(`${name} animation is not supported.`);
     }
@@ -351,6 +378,8 @@ export class VelocityAnimator {
       el.animations = {};
       el.animations.enter = this._parseAttributeValue(el.getAttribute('anim-enter')) || this.enterAnimation;
       el.animations.leave = this._parseAttributeValue(el.getAttribute('anim-leave')) || this.leaveAnimation;
+      el.animations.show = this._parseAttributeValue(el.getAttribute('anim-show')) || undefined;
+      el.animations.hide = this._parseAttributeValue(el.getAttribute('anim-hide')) || undefined;
     }
   }
 
@@ -392,7 +421,7 @@ export class VelocityAnimator {
   }
 }
 
-function dispatch(element, name):boid {
+function dispatch(element, name):void {
   let evt = DOM.createCustomEvent(animationEvent[name], {bubbles: true, cancelable: true, detail: element});
   DOM.dispatchEvent(evt);
 }

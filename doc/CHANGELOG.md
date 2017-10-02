@@ -1,3 +1,17 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/aurelia/animator-velocity/compare/1.1.0...v1.2.0) (2017-10-02)
+
+
+### Bug Fixes
+
+* **deps:** remove templating-resources dep ([a7fedb8](https://github.com/aurelia/animator-velocity/commit/a7fedb8))
+* Fixed bug causing animations to be removed
+* Show/hide animations now only when anim-show/anim-hide present
+
+### Features
+
+* Added animations for show/hide
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/aurelia/animator-velocity/compare/1.0.1...v1.1.0) (2017-02-27)
 

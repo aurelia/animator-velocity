@@ -3,7 +3,7 @@
 System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'velocity-animate/velocity.ui'], function (_export, _context) {
   "use strict";
 
-  var velocity, animationEvent, TemplatingEngine, DOM, PLATFORM, VelocityAnimator;
+  var velocity, animationEvent, TemplatingEngine, DOM, PLATFORM, aureliaHideClassName, VelocityAnimator;
 
   
 
@@ -54,6 +54,8 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
       PLATFORM = _aureliaPal.PLATFORM;
     }, function (_velocityAnimateVelocityUi) {}],
     execute: function () {
+      aureliaHideClassName = 'aurelia-hide';
+
       _export('VelocityAnimator', VelocityAnimator = function () {
         function VelocityAnimator(container) {
           
@@ -68,7 +70,9 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
           this.easings = [];
           this.effects = {
             ':enter': 'fadeIn',
-            ':leave': 'fadeOut'
+            ':leave': 'fadeOut',
+            ':show': 'fadeIn',
+            ':hide': 'fadeOut'
           };
 
           this.container = container || DOM;
@@ -196,11 +200,22 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
         };
 
         VelocityAnimator.prototype.removeClass = function removeClass(element, className) {
+          if (className === aureliaHideClassName && element.getAttribute('anim-show')) {
+            element.classList.remove(className);
+            return this.stop(element, true)._runElementAnimation(element, ':show', undefined, 'show');
+          }
+
           element.classList.remove(className);
           return Promise.resolve(false);
         };
 
         VelocityAnimator.prototype.addClass = function addClass(element, className) {
+          if (className === aureliaHideClassName && element.getAttribute('anim-hide')) {
+            return this.stop(element, true)._runElementAnimation(element, ':hide', undefined, 'hide').then(function () {
+              element.classList.add(className);
+            });
+          }
+
           element.classList.add(className);
           return Promise.resolve(false);
         };
@@ -260,6 +275,18 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
               attrOpts = leave.options;
               break;
 
+            case ':show':
+              var show = element.animations.show;
+              name = show.properties;
+              attrOpts = show.options;
+              break;
+
+            case ':hide':
+              var hide = element.animations.hide;
+              name = hide.properties;
+              attrOpts = hide.options;
+              break;
+
             default:
               if (!this.effects[this.resolveEffectAlias(name)]) throw new Error(name + ' animation is not supported.');
           }
@@ -278,6 +305,8 @@ System.register(['velocity-animate', 'aurelia-templating', 'aurelia-pal', 'veloc
             el.animations = {};
             el.animations.enter = this._parseAttributeValue(el.getAttribute('anim-enter')) || this.enterAnimation;
             el.animations.leave = this._parseAttributeValue(el.getAttribute('anim-leave')) || this.leaveAnimation;
+            el.animations.show = this._parseAttributeValue(el.getAttribute('anim-show')) || undefined;
+            el.animations.hide = this._parseAttributeValue(el.getAttribute('anim-hide')) || undefined;
           }
         };
 
