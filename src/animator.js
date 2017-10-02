@@ -246,10 +246,10 @@ export class VelocityAnimator {
     if (className === aureliaHideClassName && element.getAttribute('anim-show')) {
       element.classList.remove(className);
       return this.stop(element, true)._runElementAnimation(element, ':show', undefined, 'show');
-    } else {
-      element.classList.remove(className);
-      return Promise.resolve(false);
     }
+
+    element.classList.remove(className);
+    return Promise.resolve(false);
   }
 
   /**
@@ -263,10 +263,10 @@ export class VelocityAnimator {
       return this.stop(element, true)._runElementAnimation(element, ':hide', undefined, 'hide').then(() => {
         element.classList.add(className);
       });
-    } else {
-      element.classList.add(className);
-      return Promise.resolve(false);
     }
+
+    element.classList.add(className);
+    return Promise.resolve(false);
   }
 
   /**
